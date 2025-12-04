@@ -144,7 +144,7 @@
 
         .navbar {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
         }
 
@@ -581,7 +581,12 @@
             font-size: 1em;
             margin: 0 5px;
         }
-        
+		.iqra-logo {
+			width: 96px;
+			height: 96px;
+			object-fit: contain;
+			display: inline-block;
+		}        
         /* --- Responsiveness (Simple Media Query) --- */
         @media (max-width: 768px) {
             .navbar {
@@ -628,11 +633,10 @@
 
     <header>
         <div class="container navbar">
-            <div class="logo-text">
+            <div class="iqra-logo">
                 <span class="islamic-motif">
-                    <i class="fas fa-mosque"></i>
+                    <img src="123.png" alt="IQRA" class="iqra-logo">
                 </span>
-                ইকরা ইসলামিয়া ক্যাডেট মাদ্রাসা
             </div>
             <nav>
                 <ul class="nav-links">
@@ -780,7 +784,7 @@
                 <h3>ভর্তি চলছে! (Admission is Open!)</h3>
                 <p>আমাদের আধুনিক ও ইসলামিক শিক্ষা কার্যক্রমে যোগ দিতে আজই আবেদন করুন।</p>
                 <div>
-                    <a href="#" class="btn btn-apply">
+                    <a href="https://forms.gle/Db4hCGWKxK9QcqTv8" class="btn btn-apply">
                         <i class="fas fa-edit"></i> Apply for Admission
                     </a>
                     <a href="#" class="btn btn-download">
@@ -817,22 +821,25 @@
             <div class="contact-grid">
                 <div class="contact-form-container">
                     <h3>যোগাযোগ ফরম</h3>
-                    <form onsubmit="alert('Message Sent!'); return false;">
-                        <input type="text" name="name" placeholder="নাম" required>
-                        <input type="tel" name="phone" placeholder="ফোন নম্বর" required>
-                        <textarea name="message" rows="5" placeholder="মেসেজ" required></textarea>
-                        <button type="submit"><i class="fas fa-paper-plane"></i> মেসেজ পাঠান</button>
-                    </form>
+                    <form action="https://api.staticforms.dev/submit" method="POST">
+						<input type="hidden" name="apiKey" value="sf_k2m77g3j4ld3j29lc349bfkg">
+						<input type="text" name="name" placeholder="নাম" required>
+						<input type="email" name="email" placeholder="ইমেইল" required>
+						<input type="tel" name="phone" placeholder="ফোন নম্বর" required>
+						<textarea name="message" placeholder="মেসেজ" rows="5" required></textarea>
+						<input type="hidden" name="redirect" value="https://yourwebsite.com/thank-you">
+						<button type="submit">মেসেজ পাঠান</button>
+					</form>
                     <div class="social-links">
-                        <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="https://wa.me/" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://facebook.com/iqramadrashajsr" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://wa.me/8801718720379" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://youtube.com" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 <div class="map-container">
                     <h3>অবস্থান (Our Location)</h3>
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117562.91039801328!2d89.15546252481005!3d23.16781987588077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ff1a0f58025211%3A0x6d2a420b9e8f62f3!2sJessore!5e0!3m2!1sen!2sbd!4v1636545600000!5m2!1sen!2sbd" 
+                        src="https://www.google.com/maps/embed/v1/place?q=Iqra%20Islamia%20Cadet%20Madrasha%2C%20Jashore&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8" 
                         allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                 </div>
@@ -850,12 +857,7 @@
     </footer>
 
     <script>
-        // Set the current year in the footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-        // Optional: Simple JS to highlight the active menu item (if it were a multi-page site)
-        // For a single-page site like this, it's often done with an Intersection Observer, 
-        // but for simplicity, we'll keep it minimal.
     </script>
 </body>
 </html>
