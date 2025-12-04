@@ -1,1 +1,1 @@
-IQRA Madrasa
+IQRA Cadet Madrasa
