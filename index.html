@@ -12,14 +12,47 @@
     <style>
         /* --- Color Palette & Font Variables --- */
         :root {
+            /* Light Theme Defaults */
             --emerald-green: #007F5F; /* Primary Islamic Color */
             --gold: #D4AF37; /* Prestige and Accent Color */
             --white: #FFFFFF; /* Clean Background */
             --light-beige: #FAF6EF; /* Soft Islamic Accent */
+            --text-color-primary: #333;
+            --text-color-secondary: #555;
+            --box-shadow: rgba(0, 0, 0, 0.1);
+            --header-bg: var(--white);
+            --hero-content-bg: rgba(255, 255, 255, 0.95);
+            --alt-section-bg: var(--light-beige);
+            --card-bg: var(--white);
+            --card-hover-bg: var(--light-beige);
+            --notice-hover-bg: var(--white);
+            --input-border: #ccc;
+            --input-focus-shadow: rgba(212, 175, 55, 0.5);
+
             --heading-font-bn: 'Noto Serif Bengali', serif;
             --heading-font-en: 'Poppins', sans-serif;
             --body-font-bn: 'Hind Siliguri', sans-serif;
             --body-font-en: 'Poppins', sans-serif;
+        }
+        
+        /* --- DARK MODE VARIABLES --- */
+        .dark-mode {
+            /* Backgrounds */
+            --white: #121212; /* Main Dark Background */
+            --light-beige: #1E1E1E; /* Alt Section Dark Background */
+            --header-bg: #1A1A1A;
+            --hero-content-bg: rgba(30, 30, 30, 0.95);
+            --alt-section-bg: var(--light-beige);
+            --card-bg: #2C2C2C;
+            --card-hover-bg: #3A3A3A;
+            --notice-hover-bg: #2C2C2C;
+            
+            /* Text & Colors */
+            --text-color-primary: #E0E0E0;
+            --text-color-secondary: #B0B0B0;
+            --box-shadow: rgba(0, 0, 0, 0.5);
+            --input-border: #444;
+            --input-focus-shadow: rgba(212, 175, 55, 0.7);
         }
 
         /* --- Global Styles --- */
@@ -32,9 +65,10 @@
 
         body {
             font-family: var(--body-font-bn);
-            color: #333;
+            color: var(--text-color-primary);
             background-color: var(--white);
             line-height: 1.6;
+            transition: background-color 0.5s, color 0.5s; /* Smooth transition for theme change */
         }
 
         a {
@@ -51,7 +85,17 @@
             font-family: var(--heading-font-bn);
             color: var(--emerald-green);
             margin-bottom: 0.5em;
+            transition: color 0.5s; /* Smooth transition for theme change */
         }
+        
+        /* Dark mode specific text color adjustments */
+        .dark-mode h1, .dark-mode h2, .dark-mode h3 {
+            color: var(--gold); /* Headings in dark mode might look better in Gold or a brighter accent */
+        }
+        .dark-mode .hero-content h1 {
+            color: var(--emerald-green); /* Keep hero title emerald for consistency */
+        }
+
 
         .container {
             max-width: 1200px;
@@ -101,12 +145,12 @@
         section {
             padding: 80px 0;
             text-align: center;
+            transition: background-color 0.5s;
         }
         
         /* Alternating section background for visual separation */
-        /* Updated: #about is light-beige, #messages is white, #facilities is light-beige */
         #about, #facilities, #contact {
-            background-color: var(--light-beige);
+            background-color: var(--alt-section-bg);
         }
         
         #messages {
@@ -134,19 +178,27 @@
 
         /* --- Header & Navigation --- */
         header {
-            background-color: var(--white);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 5px var(--box-shadow);
             position: sticky;
             top: 0;
             z-index: 1000;
             padding: 10px 0;
+            transition: background-color 0.5s, box-shadow 0.5s;
         }
 
         .navbar {
             display: flex;
+            justify-content: space-between; /* Adjusted to include the toggle button */
+            align-items: center;
+        }
+        
+        .nav-center {
+            display: flex;
             justify-content: center;
             align-items: center;
         }
+
 
         .logo-text {
             font-family: var(--heading-font-bn);
@@ -182,12 +234,36 @@
             font-size: 1.2em;
             margin-right: 5px;
         }
+        
+        /* --- THEME TOGGLE BUTTON STYLES --- */
+        #theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: var(--emerald-green); /* Default color */
+            padding: 10px;
+            transition: color 0.3s, transform 0.2s;
+            margin-left: 20px;
+        }
+
+        #theme-toggle:hover {
+            color: var(--gold);
+            transform: scale(1.1);
+        }
+        
+        .dark-mode #theme-toggle {
+            color: var(--gold); /* Icon color in dark mode */
+        }
+        /* --- END THEME TOGGLE BUTTON STYLES --- */
+
 
         /* --- Hero Section - UNIQUE MOSQUE WATERMARK --- */
         #hero {
-            background-color: var(--soft-cream);
+            background-color: var(--card-bg); /* Using card-bg for consistency */
             /* Mosque Watermark (Faded Copper/Brown) */
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23b87333" fill-opacity=".1" d="M36.7 51.5C59.4 34.8 91.8 32 118 40.5l5.8 1.9c.7 2.4 1.4 5 1.4 7.7V424h-1.4c-32.9 0-66.2 3.6-96.6 11.2-3.1 .8-6.1 1.6-9.1 2.5l-4.7 1.4c-22.3 6.6-43.5 9.9-63.1 9.9-10.8 0-21.7-1.1-32.1-3.3-31.5-6.6-59.7-22.6-77.1-45.7C-12.7 395 36.7 51.5 36.7 51.5zM475.3 51.5c-22.7-16.7-55.1-19.5-81.3-11l-5.8 1.9c-.7 2.4-1.4 5-1.4 7.7V424h1.4c32.9 0 66.2 3.6 96.6 11.2 3.1 .8 6.1 1.6 9.1 2.5l4.7 1.4c22.3 6.6 43.5 9.9 63.1 9.9 10.8 0 21.7-1.1 32.1-3.3 31.5-6.6 59.7-22.6 77.1-45.7C524.7 395 475.3 51.5 475.3 51.5zM256 0c11.3 0 22.1 2.4 31.9 6.8l20.4 9.1c38.1 17 68.9 44.5 87.7 78.4 18.8 33.9 25.1 71.9 22.3 110.8-3.1 43.5-18.7 85.5-45.7 120.3-26.9 34.8-62.8 59.9-102.7 72.8-21.6 6.9-44.6 10.4-67.8 10.4-23.2 0-46.2-3.5-67.8-10.4-39.9-12.9-75.8-38-102.7-72.8-26.9-34.8-42.6-76.8-45.7-120.3-2.8-38.9 3.5-76.9 22.3-110.8 18.8-33.9 49.6-61.4 87.7-78.4L224.1 6.8C233.9 2.4 244.7 0 256 0zM157.6 221.7c-17.7 22.7-28.7 50.8-32.3 80.2-3.6 29.4 1.2 59.5 13.5 85.8 12.3 26.3 30.6 48.7 52.8 66.3 22.1 17.6 47.9 29.5 75.3 34.5 27.4 4.9 55.4 3.7 82.2-3.8 26.8-7.4 51.6-21.2 72.5-40.4 20.9-19.2 37.1-44.3 47.8-71.3 10.7-27 15.5-56.8 14.9-86.4-.6-29.6-5.8-58.8-15.6-86.3-9.8-27.5-24.6-53.5-43.7-76.4-19.1-22.9-42.5-42.7-69.6-57.3-27.1-14.7-57.7-24.3-88.7-28.6-31-4.3-62.3-3.2-92.4 3.3-30.1 6.5-58.6 19.3-83.3 38.6-24.7 19.3-45.3 45.4-60.7 73.6-15.4 28.2-25.2 58.7-28.9 90.4-3.7 31.7 .9 63.8 13.9 94.6 13 30.8 33.2 59.8 59.5 83.9 26.3 24.1 57.5 43.1 91 55.4 33.5 12.3 69.3 17.3 104.9 14.8 35.6-2.5 69.8-11.7 101.5-27.1 31.7-15.4 60-37.9 84.7-66.2 24.7-28.4 45.3-62.5 60.7-99.7 15.4-37.1 25.2-77.5 28.9-118.7 3.7-41.2-.9-82.6-13.9-122.9-13-40.3-33.2-79-59.5-113.8-26.3-34.8-57.5-64.8-91-87.9-33.5-23.2-69.3-39.6-104.9-44.8-35.6-5.2-71.9-2.2-106.8 7.3-34.9 9.5-67.7 26.4-96.8 49.3-29.1 22.9-53.8 51.8-73.4 82.5-19.6 30.7-33.9 63.8-42.2 97.9-8.3 34.1-8.5 69.4-.5 103.8 8 34.4 23.3 66.8 45.2 96.1 21.9 29.3 49.8 54.8 82.4 75.3 32.6 20.5 69.8 35.8 109.1 44.5 39.3 8.7 80.3 10.5 120.9 5.3 40.6-5.2 79.9-17.7 116.3-36.5 36.4-18.8 69.8-44.5 98.7-75.1 28.9-30.7 53-66.8 71.3-105.7 18.3-38.9 30.7-80.6 37.1-123.6 6.4-43 4.2-87.3-6.8-129.8-11-42.5-31.5-82.9-60.6-118.1-29.1-35.2-66.2-64.3-109.7-86.4C371.7 4.2 313.2-3.1 256 1.7 198.8 6.5 142 30.7 93.4 76.5 44.9 122.3 13.3 186.2 1.9 256.7c-1.6 44.6 7.4 89.1 26.9 129.5 19.5 40.4 48.7 75.6 83.1 102.5 34.4 26.9 73.9 45.1 115.6 52.8 41.7 7.7 84.8 5.7 125.7-5.9 40.9-11.6 78.4-32.9 109.2-62.5 30.8-29.6 54.6-67.4 70.3-108.9 15.7-41.5 23.9-86.3 23.9-131.7 0-45.4-8.2-90.2-23.9-131.7-15.7-41.5-39.5-79.3-70.3-108.9-30.8-29.6-68.3-50.9-109.2-62.5-40.9-11.6-83.9-13.6-125.7-5.9-41.7 7.7-81.2 25.9-115.6 52.8-34.4 26.9-63.6 62.1-83.1 102.5-19.5 40.4-28.5 84.9-26.9 129.5 1.4 44.6 13.9 88.5 36.6 128.5 22.7 40 54.7 74.3 90.4 97.4 35.7 23.1 75.3 35.2 115.9 35.2 40.6 0 80.2-12.1 115.9-35.2 35.7-23.1 67.7-57.4 90.4-97.4 22.7-40 35.2-83.9 36.6-128.5 1.6-44.6-7.4-89.1-26.9-129.5-19.5-40.4-48.7-75.6-83.1-102.5-34.4-26.9-73.9-45.1-115.6-52.8C297.7 6.3 256 12.3 256 12.3z"/><path fill="%23b87333" fill-opacity=".05" d="M256 12.3c-41.7 7.7-81.2 25.9-115.6 52.8-34.4 26.9-63.6 62.1-83.1 102.5-19.5 40.4-28.5 84.9-26.9 129.5 1.6 44.6 13.9 88.5 36.6 128.5 22.7 40 54.7 74.3 90.4 97.4 35.7 23.1 75.3 35.2 115.9 35.2 40.6 0 80.2-12.1 115.9-35.2 35.7-23.1 67.7-57.4 90.4-97.4 22.7-40 35.2-83.9 36.6-128.5 1.6-44.6-7.4-89.1-26.9-129.5-19.5-40.4-48.7-75.6-83.1-102.5C337.2 38.2 297.7 20 256 12.3z"/></svg>');
+            /* The SVG fill color will NOT dynamically change with the theme, keeping it subtle */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23b87333" fill-opacity=".1" d="M36.7 51.5C59.4 34.8 91.8 32 118 40.5l5.8 1.9c.7 2.4 1.4 5 1.4 7.7V424h-1.4c-32.9 0-66.2 3.6-96.6 11.2-3.1 .8-6.1 1.6-9.1 2.5l-4.7 1.4c-22.3 6.6-43.5 9.9-63.1 9.9-10.8 0-21.7-1.1-32.1-3.3-31.5-6.6-59.7-22.6-77.1-45.7C-12.7 395 36.7 51.5 36.7 51.5zM475.3 51.5c-22.7-16.7-55.1-19.5-81.3-11l-5.8 1.9c-.7 2.4-1.4 5-1.4 7.7V424h1.4c32.9 0 66.2 3.6 96.6 11.2 3.1 .8 6.1 1.6 9.1 2.5l4.7 1.4c22.3 6.6 43.5 9.9 63.1 9.9 10.8 0 21.7-1.1 32.1-3.3 31.5-6.6 59.7-22.6 77.1-45.7C524.7 395 475.3 51.5 475.3 51.5zM256 0c11.3 0 22.1 2.4 31.9 6.8l20.4 9.1c38.1 17 68.9 44.5 87.7 78.4 18.8 33.9 25.1 71.9 22.3 110.8-3.1 43.5-18.7 85.5-45.7 120.3-26.9 34.8-62.8 59.9-102.7 72.8-21.6 6.9-44.6 10.4-67.8 10.4-23.2 0-46.2-3.5-67.8-10.4-39.9-12.9-75.8-38-102.7-72.8-26.9-34.8-42.6-76.8-45.7-120.3-2.8-38.9 3.5-76.9 22.3-110.8 18.8-33.9 49.6-61.4 87.7-78.4L224.1 6.8C233.9 2.4 244.7 0 256 0zM157.6 221.7c-17.7 22.7-28.7 50.8-32.3 80.2-3.6 29.4 1.2 59.5 13.5 85.8 12.3 26.3 30.6 48.7 52.8 66.3 22.1 17.6 47.9 29.5 75.3 34.5 27.4 4.9 55.4 3.7 82.2-3.8 26.8-7.4 51.6-21.2 72.5-40.4 20.9-19.2 37.1-44.3 47.8-71.3 10.7-27 15.5-56.8 14.9-86.4-.6-29.6-5.8-58.8-15.6-86.3-9.8-27.5-24.6-53.5-43.7-76.4-19.1-22.9-42.5-42.7-69.6-57.3-27.1-14.7-57.7-24.3-88.7-28.6-31-4.3-62.3-3.2-92.4 3.3-30.1 6.5-58.6 19.3-83.3 38.6-24.7 19.3-45.3 45.4-60.7 73.6-15.4 28.2-25.2 58.7-28.9 90.4-3.7 31.7 .9 63.8 13.9 94.6 13 30.8 33.2 59.8 59.5 83.9 26.3 24.1 57.5 43.1 91 55.4 33.5 12.3 69.3 17.3 104.9 14.8 35.6-2.5 69.8-11.7 101.5-27.1 31.7-15.4 60-37.9 84.7-66.2 24.7-28.4 45.3-62.5 60.7-99.7 15.4-37.1 25.2-77.5 28.9-118.7 3.7-41.2-.9-82.6-13.9-122.9-13-40.3-33.2-79-59.5-113.8-26.3-34.8-57.5-64.8-91-87.9-33.5-23.2-69.3-39.6-104.9-44.8-35.6-5.2-71.9-2.2-106.8 7.3-34.9 9.5-67.7 26.4-96.8 49.3-29.1 22.9-53.8 51.8-73.4 82.5-19.6 30.7-33.9 63.8-42.2 97.9-8.3 34.1-8.5 69.4-.5 103.8 8 34.4 23.3 66.8 45.2 96.1 21.9 29.3 49.8 54.8 82.4 75.3 32.6 20.5 69.8 35.8 109.1 44.5 39.3 8.7 80.3 10.5 120.9 5.3 40.6-5.2 79.9-17.7 116.3-36.5 36.4-18.8 69.8-44.5 98.7-75.1 28.9-30.7 53-66.8 71.3-105.7 18.3-38.9 30.7-80.6 37.1-123.6 6.4-43 4.2-87.3-6.8-129.8-11-42.5-31.5-82.9-60.6-118.1-29.1-35.2-66.2-64.3-109.7-86.4C371.7 4.2 313.2-3.1 256 1.7 198.8 6.5 142 30.7 93.4 76.5 44.9 122.3 13.3 186.2 1.9 256.7c-1.6 44.6 7.4 89.1 26.9 129.5 19.5 40.4 48.7 75.6 83.1 102.5 34.4 26.9 73.9 45.1 115.6 52.8 41.7 7.7 84.8 5.7 125.7-5.9 40.9-11.6 78.4-32.9 109.2-62.5 30.8-29.6 54.6-67.4 70.3-108.9 15.7-41.5 23.9-86.3 23.9-131.7 0-45.4-8.2-90.2-23.9-131.7-15.7-41.5-39.5-79.3-70.3-108.9-30.8-29.6-68.3-50.9-109.2-62.5-40.9-11.6-83.9-13.6-125.7-5.9-41.7 7.7-81.2 25.9-115.6 52.8-34.4 26.9-63.6 62.1-83.1 102.5-19.5 40.4-28.5 84.9-26.9 129.5 1.6-44.6-7.4-89.1-26.9-129.5-19.5-40.4-48.7-75.6-83.1-102.5-34.4-26.9-73.9-45.1-115.6-52.8C297.7 6.3 256 12.3 256 12.3z"/><path fill="%23b87333" fill-opacity=".05" d="M256 12.3c-41.7 7.7-81.2 25.9-115.6 52.8-34.4 26.9-63.6 62.1-83.1 102.5-19.5 40.4-28.5 84.9-26.9 129.5 1.6 44.6 13.9 88.5 36.6 128.5 22.7 40 54.7 74.3 90.4 97.4 35.7 23.1 75.3 35.2 115.9 35.2 40.6 0 80.2-12.1 115.9-35.2 35.7-23.1 67.7-57.4 90.4-97.4 22.7-40 35.2-83.9 36.6-128.5 1.6-44.6-7.4-89.1-26.9-129.5-19.5-40.4-48.7-75.6-83.1-102.5C337.2 38.2 297.7 20 256 12.3z"/></svg>');
             background-size: 50% auto; /* Large, subtle mosque image */
             background-position: center center;
             background-repeat: no-repeat;
@@ -195,16 +271,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #333;
+            color: var(--text-color-primary);
             text-align: center;
+            transition: background-color 0.5s;
         }
         /* End Hero Watermark */
         .hero-content {
             max-width: 800px;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.95); /* Slightly less transparent */
+            background-color: var(--hero-content-bg); /* Use new variable */
             border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Richer shadow */
+            box-shadow: 0 8px 20px var(--box-shadow); /* Use new variable */
+            transition: background-color 0.5s, box-shadow 0.5s;
         }
 
         .hero-content h1 {
@@ -216,7 +294,7 @@
 
         .hero-content p {
             font-size: 1.2em;
-            color: #555;
+            color: var(--text-color-secondary);
             margin-bottom: 30px;
             font-family: var(--body-font-bn);
         }
@@ -240,7 +318,8 @@
             max-width: 40%;
             height: auto;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px var(--box-shadow);
+            transition: box-shadow 0.5s;
         }
 
         .mission-vision {
@@ -256,21 +335,26 @@
             padding: 20px;
             border: 1px solid var(--gold);
             border-radius: 8px;
-            background-color: var(--white);
+            background-color: var(--card-bg);
             transition: all 0.3s;
         }
         
         .mv-item:hover {
-            background-color: var(--light-beige);
+            background-color: var(--card-hover-bg);
             border-color: var(--emerald-green);
             transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 15px var(--box-shadow);
         }
         
         .mv-item i {
             font-size: 2em;
             color: var(--emerald-green);
             margin-bottom: 10px;
+        }
+        
+        /* Dark Mode Specific Hover */
+        .dark-mode .mv-item:hover {
+            background-color: var(--card-hover-bg); 
         }
 
         /* --- Leadership Messages Section Styles --- */
@@ -286,14 +370,15 @@
             padding: 30px;
             border-radius: 10px;
             border: 1px solid var(--light-beige);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 10px var(--box-shadow);
             transition: all 0.3s;
             position: relative;
         }
 
         .message-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 15px var(--box-shadow);
         }
 
         .message-card h3 {
@@ -304,7 +389,7 @@
 
         .message-card .speech-quote {
             font-style: italic;
-            color: #555;
+            color: var(--text-color-secondary);
             margin: 15px 0;
             border-left: 3px solid var(--emerald-green);
             padding-left: 15px;
@@ -315,6 +400,10 @@
             font-weight: 600;
             color: var(--emerald-green);
         }
+        
+        .dark-mode .message-card .speaker-info {
+             color: var(--gold);
+        }
 
         .message-card .quote-icon {
             position: absolute;
@@ -324,6 +413,12 @@
             color: var(--light-beige);
             z-index: 1;
         }
+        
+        /* Dark Mode adjustment for quote icon background */
+        .dark-mode .message-card .quote-icon {
+            color: #3A3A3A;
+        }
+
 
         /* --- Programs Section (Existing Styles) --- */
         .programs-grid {
@@ -335,10 +430,10 @@
 
         /* Hover Effect for Program Cards */
         .program-card {
-            background-color: var(--white);
+            background-color: var(--card-bg);
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 10px var(--box-shadow);
             border-top: 5px solid var(--emerald-green);
             transition: all 0.3s;
         }
@@ -346,7 +441,7 @@
         .program-card:hover {
             border-top: 5px solid var(--gold); /* Change border color on hover */
             transform: translateY(-5px); /* Lift */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px var(--box-shadow);
         }
 
         .program-card i {
@@ -368,16 +463,16 @@
         .facility-item {
             width: 150px;
             padding: 20px;
-            background-color: var(--white);
+            background-color: var(--card-bg);
             border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px var(--box-shadow);
             transition: transform 0.3s, background-color 0.3s;
         }
 
         .facility-item:hover {
             transform: translateY(-5px) scale(1.05); /* Lift and slight zoom */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            background-color: var(--white); 
+            box-shadow: 0 8px 20px var(--box-shadow);
+            background-color: var(--card-hover-bg); 
         }
 
         .facility-item i {
@@ -423,13 +518,25 @@
             border-radius: 10px;
             max-width: 800px;
             margin: 0 auto;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px var(--box-shadow);
+            transition: background-color 0.5s, box-shadow 0.5s;
+        }
+        
+        /* Dark mode special: admission section uses the color palette differently */
+        .dark-mode #admission .admission-content {
+            background-color: var(--gold); /* Swap for a bold color in dark mode */
+            color: var(--text-color-primary); /* Light text on gold background */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
         }
 
         #admission h3 {
             color: var(--gold);
             margin-bottom: 20px;
             font-family: var(--heading-font-bn);
+        }
+        
+        .dark-mode #admission h3 {
+            color: var(--emerald-green); /* Contrast green on gold background */
         }
 
         #admission .btn {
@@ -448,6 +555,17 @@
             color: var(--white); /* White text on hover */
             transform: scale(1.05);
         }
+        
+        .dark-mode .btn-apply {
+             background-color: var(--emerald-green);
+             color: var(--white);
+             border: 2px solid var(--emerald-green);
+        }
+        
+        .dark-mode .btn-apply:hover {
+            background-color: #00664e;
+            color: var(--white);
+        }
 
         .btn-download {
             background-color: var(--white);
@@ -461,6 +579,19 @@
             border: 2px solid var(--gold);
             transform: scale(1.05);
         }
+        
+        .dark-mode .btn-download {
+            background-color: var(--light-beige);
+            color: var(--emerald-green);
+            border: 2px solid var(--light-beige);
+        }
+        
+        .dark-mode .btn-download:hover {
+            background-color: var(--emerald-green);
+            color: var(--white);
+            border: 2px solid var(--gold);
+        }
+
 
         /* --- Notice Board / News --- */
         #notice .notice-list {
@@ -472,19 +603,19 @@
 
         /* Hover Effect for Notice Items */
         .notice-item {
-            border-bottom: 1px dashed #ccc;
+            border-bottom: 1px dashed var(--text-color-secondary);
             padding: 15px 10px; /* Add slight padding for hover box */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: background-color 0.3s, transform 0.2s, border-bottom-color 0.5s;
             cursor: pointer;
         }
         
         .notice-item:hover {
-            background-color: var(--white);
+            background-color: var(--notice-hover-bg);
             transform: translateX(5px); /* Slide right effect */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 5px var(--box-shadow);
             border-radius: 4px;
         }
 
@@ -513,17 +644,19 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--input-border);
             border-radius: 5px;
             font-family: var(--body-font-bn);
-            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: var(--card-bg); /* Use card-bg for inputs */
+            color: var(--text-color-primary);
+            transition: border-color 0.3s, box-shadow 0.3s, background-color 0.5s;
         }
         
         /* Input focus effect */
         .contact-form-container input:focus, .contact-form-container textarea:focus {
             outline: none;
             border-color: var(--gold);
-            box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 5px var(--input-focus-shadow);
         }
 
         .contact-form-container button {
@@ -564,7 +697,7 @@
             height: 400px;
             border: 0;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px var(--box-shadow);
         }
 
         /* --- Footer --- */
@@ -574,6 +707,7 @@
             padding: 20px 0;
             text-align: center;
             font-family: var(--body-font-en);
+            transition: background-color 0.5s, color 0.5s;
         }
 
         footer .islamic-motif {
@@ -602,6 +736,17 @@
             .nav-links li a {
                 padding: 8px 10px;
             }
+            
+            /* Add this to keep the theme toggle visible on small screens */
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: space-around;
+            }
 
             .hero-content h1 {
                 font-size: 2.5em;
@@ -626,6 +771,11 @@
             .contact-grid {
                 flex-direction: column;
             }
+            
+            #theme-toggle {
+                order: 3; /* Move toggle button to a less disruptive place on small screens */
+                margin: 0;
+            }
         }
     </style>
 </head>
@@ -638,7 +788,8 @@
                     <img src="./assets/123.png" alt="IQRA" class="iqra-logo">
                 </span>
             </div>
-            <nav>
+            
+            <nav class="nav-center">
                 <ul class="nav-links">
                     <li><a href="#hero"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
@@ -649,12 +800,17 @@
                     <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
             </nav>
+            
+            <button id="theme-toggle" aria-label="Toggle dark and light theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            
         </div>
     </header>
 
     <section id="hero">
         <div class="hero-content">
-            <h1>Iqra Islamia Cadet Madrasha, Jashore</h1>
+            <h1>ইকরা ইসলামিয়া ক্যাডেট মাদ্রাসা, যশোর</h1>
             <p class="quranic-verse">"ইকরা বিসমি রাব্বিকাল্লাযী খালাক..." (পড় তোমার প্রভুর নামে, যিনি সৃষ্টি করেছেন।)</p>
             <p><strong>ইকরা ইসলামিয়া ক্যাডেট মাদ্রাসা</strong> – আধুনিক ও ইসলামিক শিক্ষার সমন্বয়ে নেতৃত্ব, শৃঙ্খলা ও নৈতিকতার শিক্ষা প্রদানকারী প্রতিষ্ঠান।</p>
             <div>
@@ -858,6 +1014,47 @@
 
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // --- Dark/Light Theme Toggle Script ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Function to set the theme
+        function setTheme(isDarkMode) {
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Check for saved theme preference or system preference on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark') {
+                setTheme(true);
+            } else if (savedTheme === 'light') {
+                setTheme(false);
+            } else if (prefersDark) {
+                // If no preference saved, use system preference
+                setTheme(true);
+            } else {
+                setTheme(false);
+            }
+        });
+
+        // Event listener for the button click
+        themeToggle.addEventListener('click', () => {
+            const isDarkMode = body.classList.contains('dark-mode');
+            setTheme(!isDarkMode);
+        });
+        // --- End Theme Toggle Script ---
     </script>
 </body>
 </html>
