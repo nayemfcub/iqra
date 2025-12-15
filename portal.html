@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,6 +49,23 @@
       body {
         transition: background-color 0.3s ease, color 0.3s ease;
       }
+
+      /* Custom Scrollbar for Slick Look */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--color-background); 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--color-secondary); 
+        border-radius: 4px;
+        border: 2px solid var(--color-background);
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--color-accent); 
+      }
     </style>
 
 <link rel="stylesheet" href="/index.css">
@@ -59,11 +77,13 @@
     "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.10.0",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
     "vite": "https://aistudiocdn.com/vite@^7.2.6",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
+    "jspdf": "https://esm.sh/jspdf@2.5.1",
+    "html2canvas": "https://esm.sh/html2canvas@1.4.1"
   }
 }
 </script>
-  <script type="module" crossorigin src="./assets/index-Cj58fUQC.js"></script>
+  <script type="module" crossorigin src="./assets/index-BnN9q0qE.js"></script>
 </head>
   <body class="bg-background text-text-primary">
     <div id="root"></div>
