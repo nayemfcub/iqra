@@ -1,1 +1,1 @@
-IQRA Cadet Madrasa
+IICM - IQRA Islamia Cadet Madrasa, Jashore
