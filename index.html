@@ -27,7 +27,7 @@
             --text-color-primary: #333;
             --text-color-secondary: #555;
             --box-shadow: rgba(0, 0, 0, 0.1);
-            --header-bg: var(--white);
+            --header-bg: rgba(255, 255, 255, 0.85);
             --hero-content-bg: rgba(255, 255, 255, 0.95);
             --alt-section-bg: var(--light-beige);
             --card-bg: var(--white);
@@ -49,7 +49,7 @@
             /* Main Dark Background */
             --light-beige: #1E1E1E;
             /* Alt Section Dark Background */
-            --header-bg: #1A1A1A;
+            --header-bg: rgba(26, 26, 26, 0.85);
             --hero-content-bg: rgba(30, 30, 30, 0.95);
             --alt-section-bg: var(--light-beige);
             --card-bg: #2C2C2C;
@@ -75,7 +75,7 @@
         body {
             font-family: var(--body-font-bn);
             color: var(--text-color-primary);
-            background-color: var(--white);
+            background-color: transparent;
             line-height: 1.6;
             transition: background-color 0.5s, color 0.5s;
             /* Smooth transition for theme change */
@@ -174,15 +174,19 @@
             transition: background-color 0.5s;
         }
 
-        /* Alternating section background for visual separation */
+        /* Universal Transparent Sections to show 3D BG */
         #about,
         #facilities,
-        #contact {
-            background-color: var(--alt-section-bg);
-        }
-
-        #messages {
-            background-color: var(--white);
+        #contact,
+        #messages,
+        #hero,
+        #admission,
+        #notice,
+        #gallery,
+        #programs,
+        #committee,
+        #teachers {
+            background-color: transparent !important;
         }
 
         .section-title {
@@ -193,20 +197,56 @@
             display: inline-block;
         }
 
-        .section-title::after {
+        .section-title::after,
+        .hero-reveal::after {
             content: '';
             position: absolute;
             left: 50%;
             bottom: 0;
             transform: translateX(-50%);
-            width: 80px;
+            width: 0;
             height: 3px;
             background-color: var(--gold);
+            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal-active::after {
+            width: 80px;
+        }
+
+        .section-title,
+        .hero-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s, transform 1s;
+            background: linear-gradient(90deg, var(--emerald-green), var(--gold), var(--emerald-green));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .reveal-active {
+            opacity: 1;
+            transform: translateY(0);
+            animation: calligraphyGlow 5s linear infinite;
+        }
+
+        @keyframes calligraphyGlow {
+            to {
+                background-position: 200% center;
+            }
         }
 
         /* --- Header & Navigation --- */
         header {
             background-color: var(--header-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 2px 5px var(--box-shadow);
             position: sticky;
             top: 0;
@@ -318,7 +358,7 @@
 
         /* --- Hero Section - UNIQUE MOSQUE WATERMARK --- */
         #hero {
-            background-color: var(--card-bg);
+            background-color: transparent;
             /* Using card-bg for consistency */
             /* Mosque Watermark (Emerald Green for Light Mode) */
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23D4AF37" fill-opacity=".1" d="M36.7 51.5C59.4 34.8 91.8 32 118 40.5l5.8 1.9c.7 2.4 1.4 5 1.4 7.7V424h-1.4c-32.9 0-66.2 3.6-96.6 11.2-3.1 .8-6.1 1.6-9.1 2.5l-4.7 1.4c-22.3 6.6-43.5 9.9-63.1 9.9-10.8 0-21.7-1.1-32.1-3.3-31.5-6.6-59.7-22.6-77.1-45.7C-12.7 395 36.7 51.5 36.7 51.5zM475.3 51.5c-22.7-16.7-55.1-19.5-81.3-11l-5.8 1.9c-.7 2.4-1.4 5-1.4 7.7V424h1.4c32.9 0 66.2 3.6 96.6 11.2 3.1 .8 6.1 1.6 9.1 2.5l4.7 1.4c22.3 6.6 43.5 9.9 63.1 9.9 10.8 0 21.7-1.1 32.1-3.3 31.5-6.6 59.7-22.6 77.1-45.7C524.7 395 475.3 51.5 475.3 51.5zM256 0c11.3 0 22.1 2.4 31.9 6.8l20.4 9.1c38.1 17 68.9 44.5 87.7 78.4 18.8 33.9 25.1 71.9 22.3 110.8-3.1 43.5-18.7 85.5-45.7 120.3-26.9 34.8-62.8 59.9-102.7 72.8-21.6 6.9-44.6 10.4-67.8 10.4-23.2 0-46.2-3.5-67.8-10.4-39.9-12.9-75.8-38-102.7-72.8-26.9-34.8-42.6-76.8-45.7-120.3-2.8-38.9 3.5-76.9 22.3-110.8 18.8-33.9 49.6-61.4 87.7-78.4L224.1 6.8C233.9 2.4 244.7 0 256 0zM157.6 221.7c-17.7 22.7-28.7 50.8-32.3 80.2-3.6 29.4 1.2 59.5 13.5 85.8 12.3 26.3 30.6 48.7 52.8 66.3 22.1 17.6 47.9 29.5 75.3 34.5 27.4 4.9 55.4 3.7 82.2-3.8 26.8-7.4 51.6-21.2 72.5-40.4 20.9-19.2 37.1-44.3 47.8-71.3 10.7-27 15.5-56.8 14.9-86.4-.6-29.6-5.8-58.8-15.6-86.3-9.8-27.5-24.6-53.5-43.7-76.4-19.1-22.9-42.5-42.7-69.6-57.3-27.1-14.7-57.7-24.3-88.7-28.6-31-4.3-62.3-3.2-92.4 3.3-30.1 6.5-58.6 19.3-83.3 38.6-24.7 19.3-45.3 45.4-60.7 73.6-15.4 28.2-25.2 58.7-28.9 90.4-3.7 31.7 .9 63.8 13.9 94.6 13 30.8 33.2 59.8 59.5 83.9 26.3 24.1 57.5 43.1 91 55.4 33.5 12.3 69.3 17.3 104.9 14.8 35.6-2.5 69.8-11.7 101.5-27.1 31.7-15.4 60-37.9 84.7-66.2 24.7-28.4 45.3-62.5 60.7-99.7 15.4-37.1 25.2-77.5 28.9-118.7 3.7-41.2-.9-82.6-13.9-122.9-13-40.3-33.2-79-59.5-113.8-26.3-34.8-57.5-64.8-91-87.9-33.5-23.2-69.3-39.6-104.9-44.8-35.6-5.2-71.9-2.2-106.8 7.3-34.9 9.5-67.7 26.4-96.8 49.3-29.1 22.9-53.8 51.8-73.4 82.5-19.6 30.7-33.9 63.8-42.2 97.9-8.3 34.1-8.5 69.4-.5 103.8 8 34.4 23.3 66.8 45.2 96.1 21.9 29.3 49.8 54.8 82.4 75.3 32.6 20.5 69.8 35.8 109.1 44.5 39.3 8.7 80.3 10.5 120.9 5.3 40.6-5.2 79.9-17.7 116.3-36.5 36.4-18.8 69.8-44.5 98.7-75.1 28.9-30.7 53-66.8 71.3-105.7 18.3-38.9 30.7-80.6 37.1-123.6 6.4-43 4.2-87.3-6.8-129.8-11-42.5-31.5-82.9-60.6-118.1-29.1-35.2-66.2-64.3-109.7-86.4C371.7 4.2 313.2-3.1 256 1.7 198.8 6.5 142 30.7 93.4 76.5 44.9 122.3 13.3 186.2 1.9 256.7c-1.6 44.6 7.4 89.1 26.9 129.5 19.5 40.4 48.7 75.6 83.1 102.5 34.4 26.9 73.9 45.1 115.6 52.8 41.7 7.7 84.8 5.7 125.7-5.9 40.9-11.6 78.4-32.9 109.2-62.5 30.8-29.6 54.6-67.4 70.3-108.9 15.7-41.5 23.9-86.3 23.9-131.7 0-45.4-8.2-90.2-23.9-131.7-15.7-41.5-39.5-79.3-70.3-108.9-30.8-29.6-68.3-50.9-109.2-62.5-40.9-11.6-83.9-13.6-125.7-5.9-41.7 7.7-81.2 25.9-115.6 52.8-34.4 26.9-63.6 62.1-83.1 102.5-19.5 40.4-28.5 84.9-26.9 129.5 1.6-44.6-7.4-89.1-26.9-129.5-19.5-40.4-48.7-75.6-83.1-102.5-34.4-26.9-73.9-45.1-115.6-52.8C297.7 6.3 256 12.3 256 12.3z"/><path fill="%23D4AF37" fill-opacity=".05" d="M256 12.3c-41.7 7.7-81.2 25.9-115.6 52.8-34.4 26.9-63.6 62.1-83.1 102.5-19.5 40.4-28.5 84.9-26.9 129.5 1.6 44.6 13.9 88.5 36.6 128.5 22.7 40 54.7 74.3 90.4 97.4 35.7 23.1 75.3 35.2 115.9 35.2 40.6 0 80.2-12.1 115.9-35.2 35.7-23.1 67.7-57.4 90.4-97.4 22.7-40 35.2-83.9 36.6-128.5 1.6-44.6-7.4-89.1-26.9-129.5-19.5-40.4-48.7-75.6-83.1-102.5C337.2 38.2 297.7 20 256 12.3z"/></svg>');
@@ -344,6 +384,7 @@
         .hero-content {
             max-width: 800px;
             padding: 20px;
+            text-align: center;
             background-color: var(--hero-content-bg);
             /* Use new variable */
             border-radius: 10px;
@@ -381,11 +422,18 @@
             align-items: center;
         }
 
-        #about img {
+        .about-img-tilt {
+            flex: 0 0 40%;
             max-width: 40%;
+            border-radius: 10px;
+            overflow: hidden;
+            display: block;
+        }
+
+        #about img {
+            width: 100%;
             height: auto;
             border-radius: 10px;
-            box-shadow: 0 4px 8px var(--box-shadow);
             transition: box-shadow 0.5s;
         }
 
@@ -788,7 +836,9 @@
 
         /* --- Footer --- */
         footer {
-            background-color: var(--emerald-green);
+            background-color: rgba(0, 95, 71, 0.9);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             color: var(--white);
             padding: 20px 0;
             text-align: center;
@@ -1067,419 +1117,771 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* --- Content Reveal & Preloader --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--light-beige);
+            /* Matches theme (dark in dark mode) */
+            display: flex;
+            flex-direction: column;
+            /* Stack book and text vertically */
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .book {
+            position: relative;
+            /* Remove absolute centering to allow text below */
+            width: 18.5rem;
+            height: 12.5rem;
+            perspective: 70rem;
+        }
+
+        .cover {
+            background-color: #007F5F;
+            /* Fixed Emerald Green */
+            transform: rotateY(0deg);
+            width: 9.25rem;
+            height: 12.5rem;
+        }
+
+        .page {
+            top: 0.25rem;
+            left: 0.25rem;
+            background: #dcdcdc;
+            /* Base Old Gray */
+            background-image:
+                radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.1) 100%),
+                repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 3px);
+            transform: rotateY(0deg);
+            width: 9rem;
+            height: 12rem;
+            text-align: right;
+            font-size: 8px;
+            color: #444;
+            /* Darker text for gray pages */
+            font-family: monospace;
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .page::before,
+        .page::after {
+            display: block;
+            border-top: 1px dashed rgba(0, 0, 0, 0.3);
+            content: "";
+            padding-bottom: 1rem;
+        }
+
+        .cover,
+        .page {
+            position: absolute;
+            padding: 1rem;
+            transform-origin: 100% 0;
+            border-radius: 5px 0 0 5px;
+            box-shadow: inset 3px 0px 20px rgba(0, 0, 0, 0.2),
+                0px 0px 15px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        .cover.turn {
+            animation: bookCover 3s forwards;
+        }
+
+        .page.turn {
+            animation: bookOpen 3s forwards;
+        }
+
+        .page:nth-of-type(1) {
+            animation-delay: 0.05s;
+        }
+
+        .page:nth-of-type(2) {
+            animation-delay: 0.33s
+        }
+
+        .page:nth-of-type(3) {
+            animation-delay: 0.66s;
+        }
+
+        .page:nth-of-type(4) {
+            animation: bookOpen150deg 3s forwards;
+            animation-delay: 0.99s;
+        }
+
+        .page:nth-of-type(5) {
+            animation: bookOpen30deg 3s forwards;
+            animation-delay: 1.2s;
+        }
+
+        .page:nth-of-type(6) {
+            animation: bookOpen55deg 3s forwards;
+            animation-delay: 1.25s;
+        }
+
+        @keyframes bookOpen {
+            30% {
+                z-index: 999
+            }
+
+            100% {
+                transform: rotateY(180deg);
+                z-index: 999;
+            }
+        }
+
+        @keyframes bookCover {
+            30% {
+                z-index: 999
+            }
+
+            100% {
+                transform: rotateY(180deg);
+                z-index: 1;
+            }
+        }
+
+        @keyframes bookOpen150deg {
+            30% {
+                z-index: 999
+            }
+
+            100% {
+                transform: rotateY(150deg);
+                z-index: 999;
+            }
+        }
+
+        @keyframes bookOpen55deg {
+            30% {
+                z-index: 999
+            }
+
+            100% {
+                transform: rotateY(55deg);
+                z-index: 999;
+            }
+        }
+
+        @keyframes bookOpen30deg {
+            50% {
+                z-index: 999
+            }
+
+            100% {
+                transform: rotateY(30deg);
+                z-index: 999;
+            }
+        }
+
+        /* --- 3D Text Animation --- */
+        .loader-text-3d {
+            margin-top: 40px;
+            display: flex;
+            gap: 15px;
+            perspective: 1000px;
+        }
+
+        .loader-text-3d span {
+            display: inline-block;
+            font-family: var(--heading-font-en);
+            font-size: 3.5rem;
+            /* Larger font size */
+            font-weight: 800;
+            color: var(--emerald-green);
+            /* Themed Emerald */
+            text-transform: uppercase;
+            position: relative;
+            transform-style: preserve-3d;
+            opacity: 0;
+            /* Combined Entrance and Floating animations */
+            animation:
+                text-entrance 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+                text-float 5s infinite ease-in-out 1.2s;
+            text-shadow:
+                0 1px 0 #006b50,
+                0 2px 0 #005f47,
+                0 3px 0 #00543e,
+                0 4px 0 #004936,
+                0 5px 0 #003e2d,
+                0 6px 0 #003325,
+                0 7px 0 #00291d,
+                0 8px 0 #001f16,
+                0 10px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Staggered revealed delays - Slower reveal */
+        .loader-text-3d span:nth-child(1) {
+            animation-delay: 0.2s, 1.4s;
+        }
+
+        .loader-text-3d span:nth-child(2) {
+            animation-delay: 0.6s, 1.8s;
+        }
+
+        .loader-text-3d span:nth-child(3) {
+            animation-delay: 1.0s, 2.2s;
+        }
+
+        .loader-text-3d span:nth-child(4) {
+            animation-delay: 1.4s, 2.6s;
+        }
+
+        @keyframes text-entrance {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) translateZ(-100px) rotateX(-90deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) translateZ(0) rotateX(10deg);
+            }
+        }
+
+        @keyframes text-float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotateX(10deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotateX(15deg);
+                text-shadow:
+                    0 1px 0 #006b50,
+                    0 2px 0 #005f47,
+                    0 3px 0 #00543e,
+                    0 4px 0 #004936,
+                    0 20px 20px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        body.loaded #preloader {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #main-content {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        body.loaded #main-content {
+            opacity: 1;
+        }
+
+        /* --- Dynamic Loading States --- */
+        .dynamic-load {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            pointer-events: none;
+        }
+
+        .content-ready {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            pointer-events: auto !important;
+        }
+
+        /* --- ZiLONG Specific Styles --- */
+        #zilong-path {
+            position: fixed;
+            left: 15px;
+            top: 0;
+            width: 3px;
+            height: 0%;
+            background: linear-gradient(to bottom, transparent, var(--emerald-green), var(--gold));
+            box-shadow: 0 0 15px var(--gold);
+            z-index: 10001;
+            transition: height 0.1s ease-out;
+            pointer-events: none;
+        }
+
+        #zilong-path::after {
+            content: '🌙';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px var(--gold);
+        }
+
+        #zilong-cursor {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10003;
+            transition: transform 0.1s, background 0.3s;
+        }
+
+        #zilong-moon {
+            position: fixed;
+            width: 45px;
+            height: 45px;
+            pointer-events: none;
+            z-index: 10002;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        #zilong-moon i {
+            color: var(--gold);
+            font-size: 24px;
+            animation: moonSpin 6s linear infinite;
+        }
+
+        @keyframes moonSpin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        body.cursor-active #zilong-cursor {
+            transform: scale(3);
+            background: transparent;
+            border: 1px solid var(--gold);
+        }
+
+        body.cursor-active #zilong-moon {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @media (min-width: 1024px) {
+
+            body,
+            a,
+            button,
+            .notice-item {
+                cursor: none !important;
+            }
+        }
+
+        /* Tilt Physics Expanded */
+        .profile-card,
+        .teacher-card,
+        .message-card,
+        .program-card,
+        .facility-item,
+        .mv-item,
+        .about-img-tilt {
+            border-radius: 20px;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out, box-shadow 0.3s;
+            background-color: var(--card-bg);
+        }
+
+        .profile-card,
+        .teacher-card {
+            border-top: 5px solid var(--emerald-green);
+        }
+
+        .inner-parallax {
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+            pointer-events: none;
+        }
+
+        .profile-card:hover .inner-parallax,
+        .teacher-card:hover .inner-parallax,
+        .message-card:hover .inner-parallax,
+        .program-card:hover .inner-parallax,
+        .facility-item:hover .inner-parallax,
+        .mv-item:hover .inner-parallax,
+        .about-img-tilt:hover .inner-parallax {
+            transform: translateZ(45px);
+        }
+
+        .profile-card:hover,
+        .teacher-card:hover,
+        .message-card:hover,
+        .program-card:hover,
+        .facility-item:hover,
+        .mv-item:hover,
+        .about-img-tilt:hover {
+            box-shadow: 0 25px 60px var(--box-shadow);
+            border-top-color: var(--gold);
+        }
+
+        /* 3D Background */
+        #zilong-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, var(--white) 0%, var(--light-beige) 100%);
+            overflow: hidden;
+            perspective: 1500px;
+        }
+
+        .floating-particle {
+            position: absolute;
+            background: var(--emerald-green);
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(2px);
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        .dark-mode #zilong-bg {
+            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #0a0e14 100%);
+        }
+
+        .dark-mode .floating-particle {
+            background: var(--gold);
+            opacity: 0.05;
+        }
     </style>
+    <script>
+        // Immediate Theme Check (Prevents Flash & Ensures Preloader matches theme)
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        })();
+    </script>
 </head>
 
 <body>
+    <div id="zilong-bg"></div>
+    <div id="zilong-path"></div>
+    <div id="zilong-cursor"></div>
+    <div id="zilong-moon"><i class="fas fa-moon"></i></div>
 
-    <header>
-        <div class="container navbar">
-            <div class="iqra-logo">
-                <span class="islamic-motif">
-                    <img src="./assets/123.png" alt="IQRA" class="iqra-logo">
-                </span>
+    <div id="preloader">
+        <div class="book">
+            <span class="page turn"></span>
+            <span class="page turn"></span>
+            <span class="page turn"></span>
+            <span class="page turn"></span>
+            <span class="page turn"></span>
+            <span class="page turn"></span>
+            <span class="cover"></span>
+            <span class="page"></span>
+            <span class="cover turn"></span>
+        </div>
+        <div class="loader-text-3d">
+            <span>I</span><span>I</span><span>C</span><span>M</span>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <header>
+            <div class="container navbar">
+                <div class="iqra-logo">
+                    <span class="islamic-motif">
+                        <img src="./assets/123.png" alt="IQRA" class="iqra-logo">
+                    </span>
+                </div>
+
+                <nav class="nav-center">
+                    <ul class="nav-links">
+                        <li><a href="#hero"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                        <li><a href="#committee"><i class="fas fa-users-cog"></i> Committee</a></li>
+                        <li><a href="#teachers"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
+                        <li><a href="#programs"><i class="fas fa-book-open"></i> Programs</a></li>
+                        <li><a href="#admission"><i class="fas fa-file-alt"></i> Admission</a></li>
+                        <li><a href="#notice"><i class="fas fa-bullhorn"></i> Notice</a></li>
+                        <li><a href="#gallery"><i class="fas fa-images"></i> Gallery</a></li>
+                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </nav>
+
+                <button id="menu-toggle" class="menu-toggle" aria-label="Open navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <button id="theme-toggle" aria-label="Toggle dark and light theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+
             </div>
+        </header>
 
-            <nav class="nav-center">
-                <ul class="nav-links">
-                    <li><a href="#hero"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="#committee"><i class="fas fa-users-cog"></i> Committee</a></li>
-                    <li><a href="#teachers"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
-                    <li><a href="#programs"><i class="fas fa-book-open"></i> Programs</a></li>
-                    <li><a href="#admission"><i class="fas fa-file-alt"></i> Admission</a></li>
-                    <li><a href="#notice"><i class="fas fa-bullhorn"></i> Notice</a></li>
-                    <li><a href="#gallery"><i class="fas fa-images"></i> Gallery</a></li>
-                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+        <section id="hero">
+            <div class="hero-content">
+                <h1 class="hero-reveal">ইকরা ইসলামিয়া ক্যাডেট মাদ্রাসা, যশোর</h1>
+                <p class="quranic-verse">"ইকরা বিসমি রাব্বিকাল্লাযী খালাক..." (পড় তোমার প্রভুর নামে, যিনি সৃষ্টি
+                    করেছেন।)
+                </p>
+                <p><strong>ইকরা ইসলামিয়া ক্যাডেট মাদ্রাসা</strong> – আধুনিক ও ইসলামিক শিক্ষার সমন্বয়ে নেতৃত্ব, শৃঙ্খলা
+                    ও
+                    নৈতিকতার শিক্ষা প্রদানকারী প্রতিষ্ঠান।</p>
+                <div>
+                    <a href="portal.html" class="btn btn-primary">Go To Portal <i class="fas fa-arrow-right"></i></a>
+                    <a href="https://drive.google.com/drive/folders/1tLSRssH7E-SA5hpWWc7M2j5pC6PiMfyq?usp=sharing"
+                        class="btn btn-secondary">Download App <i class="fas fa-mobile-alt"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title">আমাদের সম্পর্কে (About Us)</h2>
+                <div class="about-content">
+                    <div class="about-img-tilt" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                        <div class="inner-parallax">
+                            <img src="https://iili.io/fIUEEG4.jpg" alt="Madrasa Campus Photo" id="about-image"
+                                onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'250\' viewBox=\'0 0 400 250\'><rect width=\'400\' height=\'250\' fill=\'%23e0e0e0\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'20\' fill=\'%23888\' text-anchor=\'middle\'>ক্যাম্পাসের ছবি</text></svg>'" />
+                        </div>
+                    </div>
+                    <div>
+                        <p id="about-text">ইকরা ইসলামিয়া ক্যাডেট মাদ্রাসা যশোর অঞ্চলে আধুনিক ও ইসলামিক শিক্ষার সমন্বয়ে
+                            একটি ব্যতিক্রমী
+                            শিক্ষা প্রতিষ্ঠান। আমরা ছাত্রদের নৈতিকতার সাথে নেতৃত্ব, শৃঙ্খলা এবং শ্রেষ্ঠত্বের জন্য
+                            প্রস্তুত
+                            করি। আমাদের লক্ষ্য হচ্ছে এমন প্রজন্ম তৈরি করা যারা দ্বীন ও দুনিয়া উভয় ক্ষেত্রেই সফল হবে।
+                        </p>
+
+                        <div class="mission-vision">
+                            <div class="mv-item" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                                <div class="inner-parallax">
+                                    <i class="fas fa-bullseye"></i>
+                                    <h3 id="mission-title">মিশন (Mission)</h3>
+                                    <p id="mission-text">ইসলামিক মূল্যবোধের ভিত্তিতে আধুনিক জ্ঞান ও প্রযুক্তির শিক্ষা
+                                        নিশ্চিত করা।</p>
+                                </div>
+                            </div>
+                            <div class="mv-item" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                                <div class="inner-parallax">
+                                    <i class="fas fa-eye"></i>
+                                    <h3 id="vision-title">ভিশন (Vision)</h3>
+                                    <p id="vision-text">দেশ ও জাতির জন্য আদর্শ, যোগ্য ও নৈতিকতাসম্পন্ন নেতৃত্ব তৈরি করা।
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="messages">
+            <div class="container">
+                <h2 class="section-title">নেতৃত্বের বার্তা (Leadership Messages)</h2>
+                <div class="messages-grid dynamic-load" id="messages-container">
+                    <div class="message-card" id="chairman-card" onmousemove="handleTilt(event, this)"
+                        onmouseleave="resetTilt(this)">
+                        <div class="inner-parallax">
+                            <div class="profile-img-container">
+                                <img src="https://via.placeholder.com/150" alt="Chairman" class="msg-photo">
+                            </div>
+                            <h3 class="msg-name">নাম: [চেয়ারম্যানের নাম]</h3>
+                            <i class="fas fa-quote-right quote-icon"></i>
+                            <h3>চেয়ারম্যানের বাণী (Chairman's Speech)</h3>
+                            <p class="speech-quote msg-text">"শিক্ষাই জাতির মেরুদণ্ড। আমরা আধুনিক শিক্ষার সাথে ইসলামী
+                                মূল্যবোধকে
+                                সমন্বিত করে আমাদের ছাত্রদেরকে ভবিষ্যৎ বিশ্বের জন্য প্রস্তুত করছি। শৃঙ্খলাই আমাদের মূল
+                                শক্তি।"
+                            </p>
+                            <p class="speaker-info">চেয়ারম্যান<br>ইকরা ইসলামিয়া ক্যাডেট মাদ্রাসা, যশোর</p>
+                        </div>
+                    </div>
+                    <div class="message-card" id="director-card" onmousemove="handleTilt(event, this)"
+                        onmouseleave="resetTilt(this)">
+                        <div class="inner-parallax">
+                            <div class="profile-img-container">
+                                <img src="https://via.placeholder.com/150" alt="Director" class="msg-photo">
+                            </div>
+                            <h3 class="msg-name">নাম: [পরিচালকের নাম]</h3>
+                            <i class="fas fa-quote-right quote-icon"></i>
+                            <h3>পরিচালকের বক্তব্য (Director's Speech)</h3>
+                            <p class="speech-quote msg-text">"আমাদের প্রতিষ্ঠানে প্রতিটি শিক্ষার্থী যেন নৈতিকতা ও
+                                আত্মবিশ্বাসের
+                                সাথে বেড়ে ওঠে, সেদিকে আমরা সর্বোচ্চ গুরুত্ব দেই। ক্যাডেট জীবন তাদের জীবনে শৃঙ্খলা ও
+                                নেতৃত্বের
+                                ভিত্তি গড়ে দেয়।"</p>
+                            <p class="speaker-info">পরিচালক<br>ইকরা ইসলামিয়া ক্যাডেট মাদ্রাসা, যশোর</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="committee" style="background-color: var(--alt-section-bg);">
+            <div class="container">
+                <h2 class="section-title">কমিটি সদস্যবৃন্দ (Committee Members)</h2>
+                <div class="grid-container dynamic-load" id="committee-grid">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+        </section>
+
+        <section id="teachers" style="background-color: var(--white);">
+            <div class="container">
+                <h2 class="section-title">শিক্ষকমণ্ডলী (Teachers)</h2>
+                <div class="grid-container dynamic-load" id="teachers-grid">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+        </section>
+
+        <section id="programs">
+            <div class="container">
+                <h2 class="section-title">একাডেমিক প্রোগ্রামসমূহ (Academic Programs)</h2>
+                <div class="programs-grid">
+                    <div class="program-card" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                        <div class="inner-parallax">
+                            <i class="fas fa-quran"></i>
+                            <h3>ইসলামিক শিক্ষা</h3>
+                            <p>হিফজ, দারস-ই-নিযামী, আরবি ভাষা ও সাহিত্য অধ্যয়ন।</p>
+                        </div>
+                    </div>
+                    <div class="program-card" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                        <div class="inner-parallax">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h3>সাধারণ শিক্ষা</h3>
+                            <p>পি.এস.সি থেকে এইচ.এস.সি বা সমমানের জেনারেল বোর্ডের পাঠ্যক্রম।</p>
+                        </div>
+                    </div>
+                    <div class="program-card" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                        <div class="inner-parallax">
+                            <i class="fas fa-users-cog"></i>
+                            <h3>ক্যাডেট ও নেতৃত্ব প্রশিক্ষণ</h3>
+                            <p>শারীরিক ও মানসিক শৃঙ্খলা, নেতৃত্বের গুণাবলী ও সামরিক প্রশিক্ষণ।</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="facilities">
+            <div class="container">
+                <h2 class="section-title">সুবিধাসমূহ (Facilities)</h2>
+                <div class="facilities-grid">
+                    <div class="facility-item" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                        <div class="inner-parallax">
+                            <i class="fas fa-bed"></i>
+                            <h4>হোস্টেল</h4>
+                        </div>
+                    </div>
+                    <div class="facility-item" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                        <div class="inner-parallax">
+                            <i class="fas fa-book"></i>
+                            <h4>লাইব্রেরি</h4>
+                        </div>
+                    </div>
+                    <div class="facility-item" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                        <div class="inner-parallax">
+                            <i class="fas fa-mosque"></i>
+                            <h4>মসজিদ</h4>
+                        </div>
+                    </div>
+                    <div class="facility-item" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                        <div class="inner-parallax">
+                            <i class="fas fa-desktop"></i>
+                            <h4>ডিজিটাল ক্লাসরুম</h4>
+                        </div>
+                    </div>
+                    <div class="facility-item" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                        <div class="inner-parallax">
+                            <i class="fas fa-volleyball-ball"></i>
+                            <h4>খেলার মাঠ</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <div class="container">
+                <h2 class="section-title">গ্যালারি (Gallery)</h2>
+                <div class="gallery-grid dynamic-load" id="gallery-grid">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+        </section>
+
+        <section id="admission">
+            <div class="container">
+                <div class="admission-content dynamic-load">
+                    <h3>ভর্তি চলছে! (Admission is Open!)</h3>
+                    <p>আমাদের আধুনিক ও ইসলামিক শিক্ষা কার্যক্রমে যোগ দিতে আজই আবেদন করুন।</p>
+                    <div>
+                        <a href="https://forms.gle/Db4hCGWKxK9QcqTv8" class="btn btn-apply" id="app-download-link">
+                            <i class="fas fa-edit"></i> Apply for Admission
+                        </a>
+                        <a href="/assets/Iqra_Islamia_Cadet_Madrasha_Prospectus.pdf" class="btn btn-download"
+                            id="prospectus-link">
+                            <i class="fas fa-file-pdf"></i> Prospectus Download (PDF)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="notice">
+            <div class="container">
+                <h2 class="section-title">নোটিশ বোর্ড / খবর (Notice Board / News)</h2>
+                <ul class="notice-list dynamic-load" id="notice-list">
+                    <!-- Dynamic Content (Rendering must include tilt handlers) -->
                 </ul>
-            </nav>
-
-            <button id="menu-toggle" class="menu-toggle" aria-label="Open navigation menu">
-                <i class="fas fa-bars"></i>
-            </button>
-
-            <button id="theme-toggle" aria-label="Toggle dark and light theme">
-                <i class="fas fa-moon"></i>
-            </button>
-
-        </div>
-    </header>
-
-    <section id="hero">
-        <div class="hero-content">
-            <h1>ইকরা ইসলামিয়া ক্যাডেট মাদ্রাসা, যশোর</h1>
-            <p class="quranic-verse">"ইকরা বিসমি রাব্বিকাল্লাযী খালাক..." (পড় তোমার প্রভুর নামে, যিনি সৃষ্টি করেছেন।)
-            </p>
-            <p><strong>ইকরা ইসলামিয়া ক্যাডেট মাদ্রাসা</strong> – আধুনিক ও ইসলামিক শিক্ষার সমন্বয়ে নেতৃত্ব, শৃঙ্খলা ও
-                নৈতিকতার শিক্ষা প্রদানকারী প্রতিষ্ঠান।</p>
-            <div>
-                <a href="portal.html" class="btn btn-primary">Go To Portal <i class="fas fa-arrow-right"></i></a>
-                <a href="https://drive.google.com/drive/folders/1tLSRssH7E-SA5hpWWc7M2j5pC6PiMfyq?usp=sharing"
-                    class="btn btn-secondary">Download App <i class="fas fa-mobile-alt"></i></a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">আমাদের সম্পর্কে (About Us)</h2>
-            <div class="about-content">
-                <img src="https://iili.io/fIUEEG4.jpg" alt="Madrasa Campus Photo"
-                    onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'250\' viewBox=\'0 0 400 250\'><rect width=\'400\' height=\'250\' fill=\'%23e0e0e0\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'20\' fill=\'%23888\' text-anchor=\'middle\'>ক্যাম্পাসের ছবি</text></svg>'" />
-                <div>
-                    <p>ইকরা ইসলামিয়া ক্যাডেট মাদ্রাসা যশোর অঞ্চলে আধুনিক ও ইসলামিক শিক্ষার সমন্বয়ে একটি ব্যতিক্রমী
-                        শিক্ষা প্রতিষ্ঠান। আমরা ছাত্রদের নৈতিকতার সাথে নেতৃত্ব, শৃঙ্খলা এবং শ্রেষ্ঠত্বের জন্য প্রস্তুত
-                        করি। আমাদের লক্ষ্য হচ্ছে এমন প্রজন্ম তৈরি করা যারা দ্বীন ও দুনিয়া উভয় ক্ষেত্রেই সফল হবে।</p>
-
-                    <div class="mission-vision">
-                        <div class="mv-item">
-                            <i class="fas fa-bullseye"></i>
-                            <h3>মিশন (Mission)</h3>
-                            <p>ইসলামিক মূল্যবোধের ভিত্তিতে আধুনিক জ্ঞান ও প্রযুক্তির শিক্ষা নিশ্চিত করা।</p>
-                        </div>
-                        <div class="mv-item">
-                            <i class="fas fa-eye"></i>
-                            <h3>ভিশন (Vision)</h3>
-                            <p>দেশ ও জাতির জন্য আদর্শ, যোগ্য ও নৈতিকতাসম্পন্ন নেতৃত্ব তৈরি করা।</p>
+        <section id="contact">
+            <div class="container">
+                <h2 class="section-title">যোগাযোগ (Contact)</h2>
+                <div class="contact-grid">
+                    <div class="contact-form-container">
+                        <h3>যোগাযোগ ফরম</h3>
+                        <form action="https://api.staticforms.dev/submit" method="POST">
+                            <input type="hidden" name="apiKey" value="sf_k2m77g3j4ld3j29lc349bfkg">
+                            <input type="text" name="name" placeholder="নাম" required>
+                            <input type="email" name="email" placeholder="ইমেইল" required>
+                            <input type="tel" name="phone" placeholder="ফোন নম্বর" required>
+                            <textarea name="message" placeholder="মেসেজ" rows="5" required></textarea>
+                            <input type="hidden" name="redirect" value="https://yourwebsite.com/thank-you">
+                            <button type="submit">মেসেজ পাঠান</button>
+                        </form>
+                        <div class="social-links">
+                            <a href="https://facebook.com/iqramadrashajsr" target="_blank" aria-label="Facebook"><i
+                                    class="fab fa-facebook"></i></a>
+                            <a href="https://wa.me/8801718720379" target="_blank" aria-label="WhatsApp"><i
+                                    class="fab fa-whatsapp"></i></a>
+                            <a href="https://youtube.com" target="_blank" aria-label="YouTube"><i
+                                    class="fab fa-youtube"></i></a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="messages">
-        <div class="container">
-            <h2 class="section-title">নেতৃত্বের বার্তা (Leadership Messages)</h2>
-            <div class="messages-grid">
-                <div class="message-card">
-                    <div class="profile-img-container">
-                        <img src="https://via.placeholder.com/150" alt="Chairman"
-                            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect width=\'150\' height=\'150\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23555\' text-anchor=\'middle\'>No Photo</text></svg>'">
-                    </div>
-                    <h3>নাম: [চেয়ারম্যানের নাম]</h3>
-                    <i class="fas fa-quote-right quote-icon"></i>
-                    <h3>চেয়ারম্যানের বাণী (Chairman's Speech)</h3>
-                    <p class="speech-quote">"শিক্ষাই জাতির মেরুদণ্ড। আমরা আধুনিক শিক্ষার সাথে ইসলামী মূল্যবোধকে সমন্বিত
-                        করে আমাদের ছাত্রদেরকে ভবিষ্যৎ বিশ্বের জন্য প্রস্তুত করছি। শৃঙ্খলাই আমাদের মূল শক্তি।"</p>
-                    <p class="speaker-info">
-                        চেয়ারম্যান<br>
-                        ইকরা ইসলামিয়া ক্যাডেট মাদ্রাসা, যশোর
-                    </p>
-                </div>
-                <div class="message-card">
-                    <div class="profile-img-container">
-                        <img src="https://via.placeholder.com/150" alt="Director"
-                            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect width=\'150\' height=\'150\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23555\' text-anchor=\'middle\'>No Photo</text></svg>'">
-                    </div>
-                    <h3>নাম: [পরিচালকের নাম]</h3>
-                    <i class="fas fa-quote-right quote-icon"></i>
-                    <h3>পরিচালকের বক্তব্য (Director's Speech)</h3>
-                    <p class="speech-quote">"আমাদের প্রতিষ্ঠানে প্রতিটি শিক্ষার্থী যেন নৈতিকতা ও আত্মবিশ্বাসের সাথে
-                        বেড়ে ওঠে, সেদিকে আমরা সর্বোচ্চ গুরুত্ব দেই। ক্যাডেট জীবন তাদের জীবনে শৃঙ্খলা ও নেতৃত্বের ভিত্তি
-                        গড়ে দেয়।"</p>
-                    <p class="speaker-info">
-                        পরিচালক<br>
-                        ইকরা ইসলামিয়া ক্যাডেট মাদ্রাসা, যশোর
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="committee" style="background-color: var(--alt-section-bg);">
-        <div class="container">
-            <h2 class="section-title">কমিটি সদস্যবৃন্দ (Committee Members)</h2>
-            <div class="grid-container">
-                <!-- Member 1 -->
-                <div class="profile-card">
-                    <div class="profile-img-container">
-                        <img src="https://via.placeholder.com/150" alt="Member"
-                            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect width=\'150\' height=\'150\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23555\' text-anchor=\'middle\'>No Photo</text></svg>'">
-                    </div>
-                    <h3>নাম: [সদস্যের নাম]</h3>
-                    <p class="designation">পদবী: সদস্য</p>
-                </div>
-                <!-- Member 2 -->
-                <div class="profile-card">
-                    <div class="profile-img-container">
-                        <img src="https://via.placeholder.com/150" alt="Member"
-                            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect width=\'150\' height=\'150\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23555\' text-anchor=\'middle\'>No Photo</text></svg>'">
-                    </div>
-                    <h3>নাম: [সদস্যের নাম]</h3>
-                    <p class="designation">পদবী: সদস্য</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="teachers" style="background-color: var(--white);">
-        <div class="container">
-            <h2 class="section-title">শিক্ষকমণ্ডলী (Teachers)</h2>
-            <div class="grid-container">
-                <!-- Teacher 1 -->
-                <div class="teacher-card">
-                    <div class="profile-img-container">
-                        <img src="https://via.placeholder.com/150" alt="Teacher"
-                            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect width=\'150\' height=\'150\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23555\' text-anchor=\'middle\'>No Photo</text></svg>'">
-                    </div>
-                    <div class="teacher-info">
-                        <h3>নাম: [শিক্ষকের নাম]</h3>
-                        <p class="designation">পদবী: সহকারী শিক্ষক</p>
-                        <p class="academic">শিক্ষাগত যোগ্যতা: [যোগ্যতা]</p>
-                        <p class="subject">বিষয়: [বিষয়]</p>
-                    </div>
-                </div>
-                <!-- Teacher 2 -->
-                <div class="teacher-card">
-                    <div class="profile-img-container">
-                        <img src="https://via.placeholder.com/150" alt="Teacher"
-                            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect width=\'150\' height=\'150\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23555\' text-anchor=\'middle\'>No Photo</text></svg>'">
-                    </div>
-                    <div class="teacher-info">
-                        <h3>নাম: [শিক্ষকের নাম]</h3>
-                        <p class="designation">পদবী: সহকারী শিক্ষক</p>
-                        <p class="academic">শিক্ষাগত যোগ্যতা: [যোগ্যতা]</p>
-                        <p class="subject">বিষয়: [বিষয়]</p>
-                    </div>
-                </div>
-                <!-- Teacher 3 -->
-                <div class="teacher-card">
-                    <div class="profile-img-container">
-                        <img src="https://via.placeholder.com/150" alt="Teacher"
-                            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect width=\'150\' height=\'150\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23555\' text-anchor=\'middle\'>No Photo</text></svg>'">
-                    </div>
-                    <div class="teacher-info">
-                        <h3>নাম: [শিক্ষকের নাম]</h3>
-                        <p class="designation">পদবী: সহকারী শিক্ষক</p>
-                        <p class="academic">শিক্ষাগত যোগ্যতা: [যোগ্যতা]</p>
-                        <p class="subject">বিষয়: [বিষয়]</p>
-                    </div>
-                </div>
-                <!-- Teacher 4 -->
-                <div class="teacher-card">
-                    <div class="profile-img-container">
-                        <img src="https://via.placeholder.com/150" alt="Teacher"
-                            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect width=\'150\' height=\'150\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23555\' text-anchor=\'middle\'>No Photo</text></svg>'">
-                    </div>
-                    <div class="teacher-info">
-                        <h3>নাম: [শিক্ষকের নাম]</h3>
-                        <p class="designation">পদবী: সহকারী শিক্ষক</p>
-                        <p class="academic">শিক্ষাগত যোগ্যতা: [যোগ্যতা]</p>
-                        <p class="subject">বিষয়: [বিষয়]</p>
-                    </div>
-                </div>
-                <!-- Teacher 5 -->
-                <div class="teacher-card">
-                    <div class="profile-img-container">
-                        <img src="https://via.placeholder.com/150" alt="Teacher"
-                            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect width=\'150\' height=\'150\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23555\' text-anchor=\'middle\'>No Photo</text></svg>'">
-                    </div>
-                    <div class="teacher-info">
-                        <h3>নাম: [শিক্ষকের নাম]</h3>
-                        <p class="designation">পদবী: সহকারী শিক্ষক</p>
-                        <p class="academic">শিক্ষাগত যোগ্যতা: [যোগ্যতা]</p>
-                        <p class="subject">বিষয়: [বিষয়]</p>
-                    </div>
-                </div>
-                <!-- Teacher 6 -->
-                <div class="teacher-card">
-                    <div class="profile-img-container">
-                        <img src="https://via.placeholder.com/150" alt="Teacher"
-                            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect width=\'150\' height=\'150\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23555\' text-anchor=\'middle\'>No Photo</text></svg>'">
-                    </div>
-                    <div class="teacher-info">
-                        <h3>নাম: [শিক্ষকের নাম]</h3>
-                        <p class="designation">পদবী: সহকারী শিক্ষক</p>
-                        <p class="academic">শিক্ষাগত যোগ্যতা: [যোগ্যতা]</p>
-                        <p class="subject">বিষয়: [বিষয়]</p>
-                    </div>
-                </div>
-                <!-- Teacher 7 -->
-                <div class="teacher-card">
-                    <div class="profile-img-container">
-                        <img src="https://via.placeholder.com/150" alt="Teacher"
-                            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect width=\'150\' height=\'150\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23555\' text-anchor=\'middle\'>No Photo</text></svg>'">
-                    </div>
-                    <div class="teacher-info">
-                        <h3>নাম: [শিক্ষকের নাম]</h3>
-                        <p class="designation">পদবী: সহকারী শিক্ষক</p>
-                        <p class="academic">শিক্ষাগত যোগ্যতা: [যোগ্যতা]</p>
-                        <p class="subject">বিষয়: [বিষয়]</p>
-                    </div>
-                </div>
-                <!-- Teacher 8 -->
-                <div class="teacher-card">
-                    <div class="profile-img-container">
-                        <img src="https://via.placeholder.com/150" alt="Teacher"
-                            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect width=\'150\' height=\'150\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23555\' text-anchor=\'middle\'>No Photo</text></svg>'">
-                    </div>
-                    <div class="teacher-info">
-                        <h3>নাম: [শিক্ষকের নাম]</h3>
-                        <p class="designation">পদবী: সহকারী শিক্ষক</p>
-                        <p class="academic">শিক্ষাগত যোগ্যতা: [যোগ্যতা]</p>
-                        <p class="subject">বিষয়: [বিষয়]</p>
-                    </div>
-                </div>
-                <!-- Teacher 9 -->
-                <div class="teacher-card">
-                    <div class="profile-img-container">
-                        <img src="https://via.placeholder.com/150" alt="Teacher"
-                            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 150 150\'><rect width=\'150\' height=\'150\' fill=\'%23ddd\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'14\' fill=\'%23555\' text-anchor=\'middle\'>No Photo</text></svg>'">
-                    </div>
-                    <div class="teacher-info">
-                        <h3>নাম: [শিক্ষকের নাম]</h3>
-                        <p class="designation">পদবী: সহকারী শিক্ষক</p>
-                        <p class="academic">শিক্ষাগত যোগ্যতা: [যোগ্যতা]</p>
-                        <p class="subject">বিষয়: [বিষয়]</p>
+                    <div class="map-container">
+                        <h3>অবস্থান (Our Location)</h3>
+                        <iframe
+                            src="https://www.google.com/maps/embed/v1/place?q=Iqra%20Islamia%20Cadet%20Madrasha%2C%20Jashore&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="programs">
-        <div class="container">
-            <h2 class="section-title">একাডেমিক প্রোগ্রামসমূহ (Academic Programs)</h2>
-            <div class="programs-grid">
-                <div class="program-card">
-                    <i class="fas fa-quran"></i>
-                    <h3>ইসলামিক শিক্ষা</h3>
-                    <p>হিফজ, দারস-ই-নিযামী, আরবি ভাষা ও সাহিত্য অধ্যয়ন।</p>
-                </div>
-                <div class="program-card">
-                    <i class="fas fa-graduation-cap"></i>
-                    <h3>সাধারণ শিক্ষা</h3>
-                    <p>পি.এস.সি থেকে এইচ.এস.সি বা সমমানের জেনারেল বোর্ডের পাঠ্যক্রম।</p>
-                </div>
-                <div class="program-card">
-                    <i class="fas fa-users-cog"></i>
-                    <h3>ক্যাডেট ও নেতৃত্ব প্রশিক্ষণ</h3>
-                    <p>শারীরিক ও মানসিক শৃঙ্খলা, নেতৃত্বের গুণাবলী ও সামরিক প্রশিক্ষণ।</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="facilities">
-        <div class="container">
-            <h2 class="section-title">সুবিধাসমূহ (Facilities)</h2>
-            <div class="facilities-grid">
-                <div class="facility-item">
-                    <i class="fas fa-bed"></i>
-                    <h4>হোস্টেল</h4>
-                </div>
-                <div class="facility-item">
-                    <i class="fas fa-book"></i>
-                    <h4>লাইব্রেরি</h4>
-                </div>
-                <div class="facility-item">
-                    <i class="fas fa-mosque"></i>
-                    <h4>মসজিদ</h4>
-                </div>
-                <div class="facility-item">
-                    <i class="fas fa-desktop"></i>
-                    <h4>ডিজিটাল ক্লাসরুম</h4>
-                </div>
-                <div class="facility-item">
-                    <i class="fas fa-volleyball-ball"></i>
-                    <h4>খেলার মাঠ</h4>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="gallery">
-        <div class="container">
-            <h2 class="section-title">গ্যালারি (Gallery)</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://iili.io/fIUvSzQ.jpg" alt="Student Activity 1"
-                        onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'250\' height=\'200\' viewBox=\'0 0 250 200\'><rect width=\'250\' height=\'200\' fill=\'%23e0e0e0\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'16\' fill=\'%23888\' text-anchor=\'middle\'>ক্রিয়াকলাপ ১</text></svg>'" />
-                </div>
-                <div class="gallery-item"><img src="https://iili.io/fIUvUXV.jpg" alt="Student Activity 2"
-                        onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'250\' height=\'200\' viewBox=\'0 0 250 200\'><rect width=\'250\' height=\'200\' fill=\'%23d0d0d0\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'16\' fill=\'%23777\' text-anchor=\'middle\'>ক্রিয়াকলাপ ২</text></svg>'" />
-                </div>
-                <div class="gallery-item"><img src="https://iili.io/fIUvgLB.jpg" alt="Student Activity 3"
-                        onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'250\' height=\'200\' viewBox=\'0 0 250 200\'><rect width=\'250\' height=\'200\' fill=\'%23c0c0c0\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'16\' fill=\'%23666\' text-anchor=\'middle\'>ক্রিয়াকলাপ ৩</text></svg>'" />
-                </div>
-                <div class="gallery-item"><img src="https://iili.io/fIUvsdg.jpg" alt="Student Activity 4"
-                        onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'250\' height=\'200\' viewBox=\'0 0 250 200\'><rect width=\'250\' height=\'200\' fill=\'%23b0b0b0\'/><text x=\'50%\' y=\'50%\' font-family=\'Arial\' font-size=\'16\' fill=\'%23555\' text-anchor=\'middle\'>ক্রিয়াকলাপ ৪</text></svg>'" />
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="admission">
-        <div class="container">
-            <div class="admission-content">
-                <h3>ভর্তি চলছে! (Admission is Open!)</h3>
-                <p>আমাদের আধুনিক ও ইসলামিক শিক্ষা কার্যক্রমে যোগ দিতে আজই আবেদন করুন।</p>
-                <div>
-                    <a href="https://forms.gle/Db4hCGWKxK9QcqTv8" class="btn btn-apply">
-                        <i class="fas fa-edit"></i> Apply for Admission
-                    </a>
-                    <a href="/assets/Iqra_Islamia_Cadet_Madrasha_Prospectus.pdf" class="btn btn-download">
-                        <i class="fas fa-file-pdf"></i> Prospectus Download (PDF)
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="notice">
-        <div class="container">
-            <h2 class="section-title">নোটিশ বোর্ড / খবর (Notice Board / News)</h2>
-            <ul class="notice-list">
-                <li class="notice-item">
-                    <span class="notice-title">ক্লাস শুরু ২০২৬</span>
-                    <span class="notice-date">৪ জানুয়ারি, ২০২৬</span>
-                </li>
-                <li class="notice-item">
-                    <span class="notice-title">পাঠ্যপুস্তক বিতরণ</span>
-                    <span class="notice-date">১ জানুয়ারি, ২০২৬</span>
-                </li>
-                <li class="notice-item">
-                    <span class="notice-title">ভর্তি পরীক্ষার ফল প্রকাশ</span>
-                    <span class="notice-date">৩০ ডিসেম্বর, ২০২৫</span>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title">যোগাযোগ (Contact)</h2>
-            <div class="contact-grid">
-                <div class="contact-form-container">
-                    <h3>যোগাযোগ ফরম</h3>
-                    <form action="https://api.staticforms.dev/submit" method="POST">
-                        <input type="hidden" name="apiKey" value="sf_k2m77g3j4ld3j29lc349bfkg">
-                        <input type="text" name="name" placeholder="নাম" required>
-                        <input type="email" name="email" placeholder="ইমেইল" required>
-                        <input type="tel" name="phone" placeholder="ফোন নম্বর" required>
-                        <textarea name="message" placeholder="মেসেজ" rows="5" required></textarea>
-                        <input type="hidden" name="redirect" value="https://yourwebsite.com/thank-you">
-                        <button type="submit">মেসেজ পাঠান</button>
-                    </form>
-                    <div class="social-links">
-                        <a href="https://facebook.com/iqramadrashajsr" target="_blank" aria-label="Facebook"><i
-                                class="fab fa-facebook"></i></a>
-                        <a href="https://wa.me/8801718720379" target="_blank" aria-label="WhatsApp"><i
-                                class="fab fa-whatsapp"></i></a>
-                        <a href="https://youtube.com" target="_blank" aria-label="YouTube"><i
-                                class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="map-container">
-                    <h3>অবস্থান (Our Location)</h3>
-                    <iframe
-                        src="https://www.google.com/maps/embed/v1/place?q=Iqra%20Islamia%20Cadet%20Madrasha%2C%20Jashore&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
-                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div><!-- End main-content -->
 
     <footer>
         <div class="container">
@@ -1498,7 +1900,6 @@
         const themeToggle = document.getElementById('theme-toggle');
         const body = document.body;
 
-        // Function to set the theme
         function setTheme(isDarkMode) {
             if (isDarkMode) {
                 body.classList.add('dark-mode');
@@ -1511,51 +1912,241 @@
             }
         }
 
-        // Check for saved theme preference or system preference on load
         document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-            if (savedTheme === 'dark') {
-                setTheme(true);
-            } else if (savedTheme === 'light') {
-                setTheme(false);
-            } else if (prefersDark) {
-                // If no preference saved, use system preference
-                setTheme(true);
+            // Update UI to match the theme applied by the head script
+            if (document.documentElement.classList.contains('dark-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
             } else {
-                setTheme(false);
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
             }
+
+            // Start dynamic data loading
+            loadWebsiteContent();
         });
 
-        // Event listener for the button click
         themeToggle.addEventListener('click', () => {
-            const isDarkMode = body.classList.contains('dark-mode');
-            setTheme(!isDarkMode);
+            const isDarkMode = document.documentElement.classList.toggle('dark-mode');
+            themeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
         });
-        // --- End Theme Toggle Script ---
 
-        // --- Mobile Menu Toggle Script (NEW) ---
         const menuToggle = document.getElementById('menu-toggle');
         const navbar = document.querySelector('.navbar');
-
         menuToggle.addEventListener('click', () => {
             const isOpen = navbar.classList.toggle('nav-open');
-            // Change hamburger icon (bars) to close icon (times) when open
             menuToggle.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
 
-        // Close menu when a navigation link is clicked (for single-page navigation)
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                // Check if the menu is actually open before closing
                 if (navbar.classList.contains('nav-open')) {
                     navbar.classList.remove('nav-open');
                     menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
                 }
             });
         });
-        // --- End Mobile Menu Toggle Script ---
+
+        // --- DYNAMIC CONTENT LOADER (OPTIMIZED BATCH FETCH) ---
+        async function loadWebsiteContent() {
+            const GAS_URL = 'https://script.google.com/macros/s/AKfycbz7wbqmkovPyTTC26kCVhYwAKuk0MCDdOpHqvF38-aGMtIvERLHiXoQ9JnJZWm3xq0d/exec';
+
+            try {
+                // Batch fetch all required data in ONE round trip
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        action: 'readMany',
+                        sheetNames: ['WebsiteLinks', 'WebsiteMessages', 'WebsiteCommittee', 'WebsiteTeachers', 'WebsiteGallery', 'WebsiteNotices', 'WebsiteAbout']
+                    })
+                });
+                const allData = await response.json();
+
+                // 0. Render About Us
+                if (allData.WebsiteAbout) {
+                    allData.WebsiteAbout.forEach(item => {
+                        if (item.id === 'main_about') {
+                            if (item.content) document.getElementById('about-text').textContent = item.content;
+                            if (item.image) document.getElementById('about-image').src = item.image;
+                        }
+                        if (item.id === 'mission') {
+                            if (item.title) document.getElementById('mission-title').textContent = item.title;
+                            if (item.content) document.getElementById('mission-text').textContent = item.content;
+                        }
+                        if (item.id === 'vision') {
+                            if (item.title) document.getElementById('vision-title').textContent = item.title;
+                            if (item.content) document.getElementById('vision-text').textContent = item.content;
+                        }
+                    });
+                }
+
+                // 1. Render Links
+                if (allData.WebsiteLinks) {
+                    allData.WebsiteLinks.forEach(link => {
+                        if (link.id === 'app_download' && link.url) {
+                            const el = document.getElementById('app-download-link');
+                            if (el) el.href = link.url;
+                        }
+                        if (link.id === 'prospectus' && link.url) {
+                            const el = document.getElementById('prospectus-link');
+                            if (el) el.href = link.url;
+                        }
+                    });
+                }
+
+                // 2. Render Messages
+                if (allData.WebsiteMessages) {
+                    allData.WebsiteMessages.forEach(msg => {
+                        const card = document.getElementById(msg.id + '-card');
+                        if (card) {
+                            if (msg.photo) card.querySelector('.msg-photo').src = msg.photo;
+                            if (msg.name) card.querySelector('.msg-name').textContent = 'নাম: ' + msg.name;
+                            if (msg.text) card.querySelector('.msg-text').textContent = msg.text;
+                        }
+                    });
+                }
+
+                // 3. Render Committee
+                if (allData.WebsiteCommittee && allData.WebsiteCommittee.length > 0) {
+                    const grid = document.getElementById('committee-grid');
+                    grid.innerHTML = allData.WebsiteCommittee.map(m => `
+                        <div class="profile-card" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                            <div class="inner-parallax">
+                                <div class="profile-img-container">
+                                    <img src="${m.photo || 'https://via.placeholder.com/150'}" alt="${m.name}" onerror="this.src='https://via.placeholder.com/150'">
+                                </div>
+                                <h3>নাম: ${m.name}</h3>
+                                <p class="designation">পদবী: ${m.designation}</p>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // 4. Render Teachers
+                if (allData.WebsiteTeachers && allData.WebsiteTeachers.length > 0) {
+                    const grid = document.getElementById('teachers-grid');
+                    grid.innerHTML = allData.WebsiteTeachers.map(t => `
+                        <div class="teacher-card" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                            <div class="inner-parallax">
+                                <div class="profile-img-container">
+                                    <img src="${t.photo || 'https://via.placeholder.com/150'}" alt="${t.name}" onerror="this.src='https://via.placeholder.com/150'">
+                                </div>
+                                <div class="teacher-info">
+                                    <h3>নাম: ${t.name}</h3>
+                                    <p class="designation">পদবী: ${t.designation}</p>
+                                    <p class="academic">শিক্ষাগত যোগ্যতা: ${t.academic || '-'}</p>
+                                    <p class="subject">বিষয়: ${t.subject || '-'}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // 5. Render Gallery
+                if (allData.WebsiteGallery && allData.WebsiteGallery.length > 0) {
+                    const grid = document.getElementById('gallery-grid');
+                    grid.innerHTML = allData.WebsiteGallery.map(img => `
+                        <div class="gallery-item" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                            <div class="inner-parallax">
+                                <img src="${img.url}" alt="${img.caption}" onerror="this.src='https://via.placeholder.com/250x200'">
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // 6. Render Notices
+                if (allData.WebsiteNotices && allData.WebsiteNotices.length > 0) {
+                    const list = document.getElementById('notice-list');
+                    list.innerHTML = allData.WebsiteNotices.map(n => `
+                        <li class="notice-item" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                            <div class="inner-parallax">
+                                <span class="notice-title">${n.title}</span>
+                                <span class="notice-date">${n.date}</span>
+                            </div>
+                        </li>
+                    `).join('');
+                }
+
+            } catch (e) {
+                console.error("Batch fetch failed", e);
+            } finally {
+                // Reveal the website and hide loader
+                document.body.classList.add('loaded');
+                document.querySelectorAll('.dynamic-load').forEach(el => {
+                    el.classList.add('content-ready');
+                });
+            }
+        }
+
+        /* --- ZiLONG Interaction Logic --- */
+
+        // 1. Cursor & Moon
+        const zCursor = document.getElementById('zilong-cursor');
+        const zMoon = document.getElementById('zilong-moon');
+        document.addEventListener('mousemove', e => {
+            if (zCursor && zMoon) {
+                zCursor.style.left = e.clientX + 'px';
+                zCursor.style.top = e.clientY + 'px';
+                zMoon.style.left = (e.clientX - 22) + 'px';
+                zMoon.style.top = (e.clientY - 22) + 'px';
+
+                // Subtle background parallax
+                const bg = document.getElementById('zilong-bg');
+                const moveX = (e.clientX - window.innerWidth / 2) / 50;
+                const moveY = (e.clientY - window.innerHeight / 2) / 50;
+                bg.style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
+            }
+        });
+        document.body.addEventListener('mouseover', e => {
+            if (e.target.closest('a, button, .notice-item, .btn, .profile-card, .teacher-card, .message-card, .program-card, .facility-item, .mv-item, .gallery-item, .about-img-tilt')) {
+                document.body.classList.add('cursor-active');
+            } else {
+                document.body.classList.remove('cursor-active');
+            }
+        });
+
+        // 2. Scroll Path Line
+        window.addEventListener('scroll', () => {
+            const path = document.getElementById('zilong-path');
+            if (path) {
+                const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                path.style.height = scrolled + '%';
+            }
+        });
+
+        // 3. 3D Tilt Cards
+        function handleTilt(e, card) {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left - rect.width / 2) / 10;
+            const y = (e.clientY - rect.top - rect.height / 2) / 10;
+            card.style.transform = `rotateX(${-y}deg) rotateY(${x}deg)`;
+        }
+        function resetTilt(card) { card.style.transform = `rotateX(0deg) rotateY(0deg)`; }
+
+        // 4. Calligraphy Revealer & 3D BG Particles
+        const titleObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal-active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.section-title, .hero-reveal').forEach(t => titleObserver.observe(t));
+
+        // Create Background Particles
+        (function createBg() {
+            const bg = document.getElementById('zilong-bg');
+            if (!bg) return;
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'floating-particle';
+                const size = Math.random() * 100 + 50;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.top = Math.random() * 100 + '%';
+                p.style.transform = `translateZ(${Math.random() * -500}px)`;
+                bg.appendChild(p);
+            }
+        })();
+
     </script>
 </body>
 
