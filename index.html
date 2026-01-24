@@ -1684,7 +1684,8 @@
                 <div>
                     <a href="portal.html" class="btn btn-primary">Go To Portal <i class="fas fa-arrow-right"></i></a>
                     <a href="https://drive.google.com/drive/folders/1tLSRssH7E-SA5hpWWc7M2j5pC6PiMfyq?usp=sharing"
-                        class="btn btn-secondary">Download App <i class="fas fa-mobile-alt"></i></a>
+                        class="btn btn-secondary" id="app-download-link">Download App <i
+                            class="fas fa-mobile-alt"></i></a>
                 </div>
             </div>
         </section>
@@ -1873,7 +1874,7 @@
                     <h3>ভর্তি চলছে! (Admission is Open!)</h3>
                     <p>আমাদের আধুনিক ও ইসলামিক শিক্ষা কার্যক্রমে যোগ দিতে আজই আবেদন করুন।</p>
                     <div>
-                        <a href="https://forms.gle/Db4hCGWKxK9QcqTv8" class="btn btn-apply" id="app-download-link">
+                        <a href="https://forms.gle/Db4hCGWKxK9QcqTv8" class="btn btn-apply" id="admission-link">
                             <i class="fas fa-edit"></i> Apply for Admission
                         </a>
                         <a href="/assets/Iqra_Islamia_Cadet_Madrasha_Prospectus.pdf" class="btn btn-download"
@@ -2046,6 +2047,10 @@
                     allData.WebsiteLinks.forEach(link => {
                         if (link.id === 'app_download' && link.url) {
                             const el = document.getElementById('app-download-link');
+                            if (el) el.href = link.url;
+                        }
+                        if (link.id === 'admission' && link.url) {
+                            const el = document.getElementById('admission-link');
                             if (el) el.href = link.url;
                         }
                         if (link.id === 'prospectus' && link.url) {
