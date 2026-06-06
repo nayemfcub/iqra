@@ -1526,7 +1526,7 @@ Your current URL might be old or have the wrong permissions. Creating a NEW depl
                     <div class="footer">
                         <div class="sig-box"><div class="sig-line">Class Teacher</div></div>
                         <div class="sig-box"><div class="sig-line">Exam Coordinator</div></div>
-                        <div class="sig-box"><div class="sig-line">Chairman & Director</div></div>
+                        <div class="sig-box"><div class="sig-line">Director</div></div>
                     </div>
 
                     <div class="brand">Powered by IICM</div>
