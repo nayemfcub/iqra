@@ -2109,9 +2109,9 @@ Your current URL might be old or have the wrong permissions. Creating a NEW depl
             <div class="header">
                 <img src="${m}" class="bismillah-img" />
                 <svg class="inst-name-arc" viewBox="0 0 204 88" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:88px;">
-                    <defs><path id="arcTop-${a.id}" d="M 8,86 A 96,96 0 0,1 196,86" /></defs>
-                    <text fill="white" font-family="serif" font-size="11px" font-weight="700">
-                        <textPath href="#arcTop-${a.id}" startOffset="2" textLength="242" lengthAdjust="spacing">${N}</textPath>
+                    <defs><path id="arcTop-${a.id}" d="M 10,86 A 96,96 0 0,1 194,86" /></defs>
+                    <text fill="white" font-family="serif" font-size="11" font-weight="700" text-anchor="middle">
+                        <textPath href="#arcTop-${a.id}" startOffset="50%">${N}</textPath>
                     </text>
                     <circle cx="102" cy="53" r="26" fill="white" stroke="#D4AF37" stroke-width="2"/>
                     <image href="${c}" x="76" y="27" width="52" height="52" clip-path="circle(25px at 26px 26px)"/>
@@ -2336,10 +2336,10 @@ Your current URL might be old or have the wrong permissions. Creating a NEW depl
                         <img src="${M}" class="bismillah-img" />
                         <svg class="inst-name-arc" viewBox="0 0 204 88" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:88px;">
                             <defs>
-                                <path id="arcTop-print" d="M 8,86 A 96,96 0 0,1 196,86" />
+                                <path id="arcTop-print" d="M 10,86 A 96,96 0 0,1 194,86" />
                             </defs>
-                            <text fill="white" font-family="serif" font-size="11px" font-weight="700">
-                                <textPath href="#arcTop-print" startOffset="2" textLength="242" lengthAdjust="spacing">${c.name.toUpperCase()}</textPath>
+                            <text fill="white" font-family="serif" font-size="11" font-weight="700" text-anchor="middle">
+                                <textPath href="#arcTop-print" startOffset="50%">${c.name.toUpperCase()}</textPath>
                             </text>
                             <circle cx="102" cy="53" r="26" fill="white" stroke="#D4AF37" stroke-width="2"/>
                             <image href="${c.logo}" x="76" y="27" width="52" height="52" clip-path="circle(25px at 26px 26px)"/>
