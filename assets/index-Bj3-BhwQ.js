@@ -2109,7 +2109,7 @@ Your current URL might be old or have the wrong permissions. Creating a NEW depl
             <div class="header">
                 <img src="${m}" class="bismillah-img" />
                 <svg class="inst-name-arc" viewBox="0 0 204 88" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:88px;">
-                    <defs><path id="arcTop-${a.id}" d="M 10,86 A 94,94 0 0,1 192,86" /></defs>
+                    <defs><path id="arcTop-${a.id}" d="M 12,86 A 98,98 0 0,1 192,86" /></defs>
                     <text fill="white" font-family="serif" font-size="11px" font-weight="700">
                         <textPath href="#arcTop-${a.id}" startOffset="2" textLength="242" lengthAdjust="spacing">${N}</textPath>
                     </text>
@@ -2336,7 +2336,7 @@ Your current URL might be old or have the wrong permissions. Creating a NEW depl
                         <img src="${M}" class="bismillah-img" />
                         <svg class="inst-name-arc" viewBox="0 0 204 88" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:88px;">
                             <defs>
-                                <path id="arcTop-print" d="M 10,86 A 94,94 0 0,1 192,86" />
+                                <path id="arcTop-print" d="M 12,86 A 98,98 0 0,1 192,86" />
                             </defs>
                             <text fill="white" font-family="serif" font-size="11px" font-weight="700">
                                 <textPath href="#arcTop-print" startOffset="2" textLength="242" lengthAdjust="spacing">${c.name.toUpperCase()}</textPath>
