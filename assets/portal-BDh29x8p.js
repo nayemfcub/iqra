@@ -2109,8 +2109,8 @@ Your current URL might be old or have the wrong permissions. Creating a NEW depl
             <div class="header">
                 <img src="${m}" class="bismillah-img" />
                 <svg class="inst-name-arc" viewBox="0 0 204 88" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:88px;">
-                    <defs><path id="arcTop-${a.id}" d="M 4,86 A 100,100 0 0,1 200,86" /></defs>
-                    <text fill="white" font-family="serif" font-size="10" font-weight="700" text-anchor="middle" letter-spacing="1">
+                    <defs><path id="arcTop-${a.id}" d="M 10,82 A 96,96 0 0,1 194,82" /></defs>
+                    <text fill="white" font-family="serif" font-size="11" font-weight="700" text-anchor="middle">
                         <textPath href="#arcTop-${a.id}" startOffset="50%">${N.replace(/ /g,"  ")}</textPath>
                     </text>
                     <circle cx="102" cy="53" r="26" fill="white" stroke="#D4AF37" stroke-width="2"/>
@@ -2335,9 +2335,9 @@ Your current URL might be old or have the wrong permissions. Creating a NEW depl
                         <img src="${M}" class="bismillah-img" />
                         <svg class="inst-name-arc" viewBox="0 0 204 88" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:88px;">
                             <defs>
-                                <path id="arcTop-print" d="M 4,86 A 100,100 0 0,1 200,86" />
+                                <path id="arcTop-print" d="M 10,82 A 96,96 0 0,1 194,82" />
                             </defs>
-                            <text fill="white" font-family="serif" font-size="10" font-weight="700" text-anchor="middle" letter-spacing="1">
+                            <text fill="white" font-family="serif" font-size="11" font-weight="700" text-anchor="middle">
                                 <textPath href="#arcTop-print" startOffset="50%">${c.name.toUpperCase().replace(/ /g,"  ")}</textPath>
                             </text>
                             <circle cx="102" cy="53" r="26" fill="white" stroke="#D4AF37" stroke-width="2"/>
